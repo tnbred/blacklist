@@ -1,0 +1,17 @@
+footer .navbar-default {
+    width: 100%;
+    border: 1px solid #eaeaea;
+    background-color: #4E4D4A;
+    font-family: verdana;
+    text-align: center;
+    height: 150px;
+    clear:both;
+}
+
+footer nav li {
+    display:inline;
+}
+
+footer nav p {
+    color: #2790B0;
+}

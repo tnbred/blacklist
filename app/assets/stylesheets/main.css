@@ -1,0 +1,19 @@
+body {
+    padding-top: 70px;
+    background-color: #2B4E72;
+    font-family: verdana;
+    color: #2790B0;
+    padding-bottom: 200px;
+}
+
+h1 {
+    text-align: center;
+}
+
+.center-vert {
+    margin-top: 10%;
+}
+
+.main-page-form {
+    margin-bottom: 10px;
+}

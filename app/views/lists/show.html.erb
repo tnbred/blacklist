@@ -1,0 +1,40 @@
+<%= provide(:title,"Show list #{@list.name}") %>
+<div><h1>Blacklist #<%= @title %></h1></div>
+
+<table class="table table-bordered table-hover">
+  <thead>
+  <tr>
+    <th>#</th>
+    <th>Firstname</th>
+    <th>Lastname</th>
+    <th>Points</th>
+    <th>Change</th>
+    <th></th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @list.peoples.each_with_index do |people,index| %>
+      <tr>
+        <td><%= index+1 %></td>
+        <td><%= people.firstname %></td>
+        <td><%= people.lastname %></td>
+        <td><%= people.points %></td>
+        <td><%= people.change %></td>
+        <td>
+          <div class="hidden add_point_div">
+            <select>
+              <option value="1">1</option>
+              <option value="2">2</option>
+            </select>
+            <button class="btn btn-danger valid_vote">Vote!</button>
+          </div>
+          <button class="btn add_point_button">+</button>
+
+        </td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<br />
+

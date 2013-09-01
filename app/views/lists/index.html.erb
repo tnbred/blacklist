@@ -1,0 +1,21 @@
+<%= provide(:title, 'Index') %>
+<div><h1>Your Black Lists</h1></div>
+
+<table class="table">
+  <thead>
+  <tr>
+    <th></th>
+    <th>List</th>
+    <th>Number of people</th>
+    <th>Points left</th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @lists.each_with_index do |list, index| %>
+      <%= render 'lists', :list => list, :index => index %>
+  <% end %>
+  </tbody>
+</table>
+
+<br/>
+

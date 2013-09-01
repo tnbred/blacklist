@@ -1,0 +1,40 @@
+.sidebar {
+    -moz-border-radius: 15px;
+    border-radius: 15px;
+    background-color: #94BA65;
+}
+
+.sidebar li {
+    padding: 8px;
+}
+
+.sidebar li i {
+    float: right;
+}
+
+.sidebar li a {
+    text-align: left;
+    color: #353432;
+    font-size: 20px;
+    font-family: verdana;
+}
+
+.sidebar-nav-fixed {
+    position:fixed;
+    top:90px;
+    left: 120px;
+    width:18.97%;
+}
+
+@media (max-width: 767px) {
+    .sidebar-nav-fixed {
+        position:static;
+        width:auto;
+    }
+}
+
+@media (max-width: 979px) {
+    .sidebar-nav-fixed {
+        top:70px;
+    }
+}

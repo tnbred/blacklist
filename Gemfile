@@ -1,0 +1,22 @@
+source 'https://rubygems.org'
+
+gem 'rails'
+gem 'sass-rails', '~> 4.0.0'
+gem 'devise', '>= 2.2.3'
+gem  'faker', '>= 1.1.2'
+gem 'anjlab-bootstrap-rails', '>= 3.0.0.0', :require => 'bootstrap-rails'
+gem 'jquery-rails'
+gem 'activeadmin', github: 'gregbell/active_admin', branch: 'rails4'
+
+group :doc do
+  gem 'sdoc', require: false
+end
+
+group :development do
+  gem 'sqlite3', '>= 1.3.5'
+end
+
+group :assets do
+  gem 'uglifier', '>= 1.3.0'
+  gem 'coffee-rails', '~> 4.0.0'
+end

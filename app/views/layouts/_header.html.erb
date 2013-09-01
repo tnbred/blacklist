@@ -1,0 +1,31 @@
+<header>
+  <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">Welcome to the Black List</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse navbar-ex1-collapse">
+      <ul class="nav navbar-nav">
+        <li>
+          <a href="/">Home</a></li>
+        <% if !user_signed_in? %>
+            <li><a href="/users/sign_up">Sign up</a></li>
+        <% end %>
+        <% if user_signed_in? %>
+            <li><a href="/users/edit">Profile</a></li>
+            <li><a href="/users/sign_out" data-method="delete" rel="nofollow">Sign out</a></li>
+        <% end %>
+      </ul>
+      <% if !user_signed_in? %>
+          <%= render 'devise/sessions/navbar' %>
+      <% end %>
+
+    </div><!-- /.navbar-collapse -->
+  </nav>
+</header>
+
+
+
+

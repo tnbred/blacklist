@@ -1,0 +1,8 @@
+<tr>
+  <td>
+    <button id="bouboup" list-id="<%= list.id %>" class="btn btn-primary">Join</button>
+  </td>
+  <td><%= link_to list.name, list_path(list) %></td>
+  <td><%= list.peoples.size %></td>
+  <td><%= list.list_user_infos.find { |l| l.user_id == current_user.id }.try(:available_points) %></td>
+</tr>
