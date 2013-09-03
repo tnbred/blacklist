@@ -12,8 +12,4 @@ class ListsController < ApplicationController
     @users = @list.users
   end
 
-  def vote
-
-  end
-
 end

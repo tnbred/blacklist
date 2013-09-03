@@ -1,4 +1,5 @@
 Blacklistv2::Application.routes.draw do
+
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
   devise_for :users
@@ -11,4 +12,5 @@ Blacklistv2::Application.routes.draw do
   root to: 'home#index', as: :unauthenticated_root
 
   resources :lists
+  resources :votes, :only => [:create], :defaults => {:format => 'json'}
 end
