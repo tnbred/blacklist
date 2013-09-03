@@ -7,6 +7,7 @@ gem  'faker', '>= 1.1.2'
 gem 'anjlab-bootstrap-rails', '>= 3.0.0.0', :require => 'bootstrap-rails'
 gem 'jquery-rails'
 gem 'activeadmin', github: 'gregbell/active_admin', branch: 'rails4'
+gem 'sprockets', '~> 2.0'
 
 group :doc do
   gem 'sdoc', require: false

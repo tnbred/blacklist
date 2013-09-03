@@ -13,18 +13,19 @@
   </tr>
   </thead>
   <tbody>
-  <% @list.peoples.each_with_index do |people,index| %>
+  <% @users.each_with_index do |list_user,index| %>
       <tr>
         <td><%= index+1 %></td>
-        <td><%= people.firstname %></td>
-        <td><%= people.lastname %></td>
-        <td><%= people.points %></td>
-        <td><%= people.change %></td>
+        <td><%= list_user.firstname %></td>
+        <td><%= list_user.lastname %></td>
+        <td><%= list_user.points_on_given_list @list %></td>
+        <td><%= list_user.variation_on_given_list @list %></td>
         <td>
           <div class="hidden add_point_div">
             <select>
-              <option value="1">1</option>
-              <option value="2">2</option>
+              <% (0..current_user.available_points_on_given_list(@list)).each do |p| %>
+                  <option value="<%= p %>"><%= p %></option>
+              <% end %>
             </select>
             <button class="btn btn-danger valid_vote">Vote!</button>
           </div>

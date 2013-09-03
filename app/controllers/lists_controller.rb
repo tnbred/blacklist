@@ -9,6 +9,7 @@ class ListsController < ApplicationController
 
   def show
     @list = List.find(params[:id])
+    @users = @list.users
   end
 
   def vote

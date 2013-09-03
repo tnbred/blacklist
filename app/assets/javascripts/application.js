@@ -14,4 +14,3 @@
 //= require jquery_ujs
 //= require twitter/bootstrap
 //= require_tree .
-//= stub active_admin.js.coffee

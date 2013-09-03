@@ -4,7 +4,11 @@ Blacklistv2::Application.routes.draw do
   devise_for :users
 
 
-  root :to => 'home#index'
+  authenticated :user do
+    root to: 'lists#index', as: :authenticated_root
+  end
+
+  root to: 'home#index', as: :unauthenticated_root
 
   resources :lists
 end

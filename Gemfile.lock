@@ -172,5 +172,6 @@ DEPENDENCIES
   rails
   sass-rails (~> 4.0.0)
   sdoc
+  sprockets (~> 2.0)
   sqlite3 (>= 1.3.5)
   uglifier (>= 1.3.0)
