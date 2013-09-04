@@ -40,6 +40,16 @@ class User < ActiveRecord::Base
     variation_total
   end
 
+  def rank_on_given_list(list)
+    rank = 0
+    list.ordered_list.each_with_index do |order_item, index|
+        if order_item[:user_to_id] == self.id
+          rank = index
+        end
+    end
+    rank
+  end
+
   private
 
   def clean_search_result(array)

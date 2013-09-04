@@ -1,8 +1,16 @@
-<tr>
-  <td>
-    <button id="bouboup" list-id="<%= list.id %>" class="btn btn-primary">Join</button>
-  </td>
-  <td><%= link_to list.name, list_path(list) %></td>
-  <td><%= list.users.size %></td>
-  <td><%= list.users.find { |u| u.id == current_user.id }.try(:available_points_on_given_list,list) %></td>
-</tr>
+<% points_of_user = list.users.find { |u| u.id == current_user.id }.try(:available_points_on_given_list,list) %>
+<% user_rank = current_user.rank_on_given_list(list) %>
+<% number_of_users_in_list = list.users.size %>
+<% user_percentage = (user_rank.to_f/number_of_users_in_list.to_f*100).ceil %>
+
+<li class="list-group-item">
+  <span class="badge"><%= pluralize(points_of_user,"point") %> left</span>
+  <%= link_to list.name, list_path(list) %>
+  <strong>You're ranked <%= user_rank %> out of <%= pluralize(number_of_users_in_list,"person") %></strong>
+  <br />
+  <div class="progress progress-striped">
+    <div class="progress-bar <%= progress_bar_status(user_percentage) %>" role="progressbar" aria-valuenow="<%= user_percentage %>" aria-valuemin="0" aria-valuemax="100" style="width: <%= user_percentage %>%">
+      <span class="sr-only"><%= user_percentage %>% Complete</span>
+    </div>
+  </div>
+</li>

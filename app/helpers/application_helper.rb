@@ -21,7 +21,7 @@ module ApplicationHelper
   end
 
   def sidebar?(title)
-    (title == "Home") ? false : true
+    (title == "Home" || title == "Blacklists") ? false : true
   end
 
   def resource_name
@@ -34,6 +34,20 @@ module ApplicationHelper
 
   def devise_mapping
     @devise_mapping ||= Devise.mappings[:user]
+  end
+
+  def progress_bar_status(number)
+    case number
+      when 0..33
+        response = "progress-bar-success"
+      when 34..65
+        response = "progress-bar-warning"
+      when 66..100
+        response = "progress-bar-danger"
+      else
+        response = "progress-bar-info"
+    end
+    response
   end
 
 end
