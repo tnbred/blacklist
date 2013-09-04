@@ -12,4 +12,12 @@ class ListsController < ApplicationController
     @users = @list.users
   end
 
+  def user_stat
+
+  end
+
+  def list_stat
+
+  end
+
 end

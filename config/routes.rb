@@ -11,6 +11,11 @@ Blacklistv2::Application.routes.draw do
 
   root to: 'home#index', as: :unauthenticated_root
 
-  resources :lists
+  resources :lists  do
+    collection do
+      get 'user_stat'
+      get 'global_stat'
+    end
+  end
   resources :votes, :only => [:create], :defaults => {:format => 'json'}
 end
