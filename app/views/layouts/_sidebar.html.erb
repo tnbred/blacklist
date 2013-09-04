@@ -1,6 +1,6 @@
   <ul class="well sidebar sidebar-nav sidebar-nav-fixed nav nav-list" data-spy="affix" data-offset-top="200">
-    <li><a href="/"><span class="glyphicon glyphicon-chevron-right"></span> Browse all lists</a></li>
-    <li><a href="/"><span class="glyphicon glyphicon-chevron-right"></span> See list</a></li>
-    <li><a href="/"><span class="glyphicon glyphicon-chevron-right"></span> Your statistics</a></li>
-    <li><a href="/"><span class="glyphicon glyphicon-chevron-right"></span> List statistics</a></li>
+    <li><%= link_to '<span class="glyphicon glyphicon-chevron-right"></span>Browse all lists'.html_safe, authenticated_root_path %></li>
+    <li><%= link_to '<span class="glyphicon glyphicon-chevron-right"></span>Show list'.html_safe, list_path(@list) %></li>
+    <li><%= link_to '<span class="glyphicon glyphicon-chevron-right"></span>Your statistics'.html_safe, authenticated_root_path %></li>
+    <li><%= link_to '<span class="glyphicon glyphicon-chevron-right"></span>List statistics'.html_safe, authenticated_root_path %></li>
   </ul>
