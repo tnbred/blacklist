@@ -50,6 +50,10 @@ class User < ActiveRecord::Base
     rank
   end
 
+  def formatted_name
+    "#{firstname.humanize} #{lastname.humanize}"
+  end
+
   private
 
   def clean_search_result(array)
