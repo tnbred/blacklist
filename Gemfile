@@ -9,6 +9,7 @@ gem 'jquery-rails'
 gem 'activeadmin', github: 'gregbell/active_admin', branch: 'rails4'
 gem 'sprockets', '~> 2.0'
 gem 'aws-sdk', '~> 1.0'
+gem 'pg'
 
 group :doc do
   gem 'sdoc', require: false
