@@ -1,1 +1,20 @@
 <%= provide(:title,"Global stats for #{@list.name}") %>
+
+
+<div class="current_week_stat_div">
+  <ol class="breadcrumb">
+    <li class="active">This week</li>
+    <li><a href="#" class="all_time_list_stats">All time</a></li>
+  </ol>
+</div>
+
+<div class="global_list_stat_div hidden">
+  <ol class="breadcrumb">
+    <li><a href="#" class="current_week_list_stats">This week</a></li>
+    <li class="active">All time</li>
+  </ol>
+</div>
+
+
+<div data-graph="" id="graph_data" data-list=<%= @list.id %>></div>
+<div id="list_stat_div"></div>

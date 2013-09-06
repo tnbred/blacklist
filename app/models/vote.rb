@@ -11,6 +11,12 @@ class Vote < ActiveRecord::Base
     votes
   end
 
+  def self.get_votes_for_specific_list(list,from=nil,to=nil)
+    votes = Vote.all.where(list_id: list.id).to_a
+    votes = get_votes_in_between(votes,from,to)
+    votes
+  end
+
 
   def has_enough_points?
     list = List.find(list_id)

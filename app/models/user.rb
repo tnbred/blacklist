@@ -22,10 +22,11 @@ class User < ActiveRecord::Base
     total_left
   end
 
-  def points_on_given_list(list)
+  def points_on_given_list(list,timestamp=nil)
     total_votes = 0
     votes = clean_search_result(Vote.all.where(list_id: list.id).to_a)
     votes = clean_search_result(votes.find_all {|v| v.user_to_id == id}) if votes
+    votes = clean_search_result(votes.find_all {|v| v.created_at.to_i < timestamp }) if (votes && timestamp)
     votes.each {|v| total_votes+=v.points} if votes
     total_votes
   end
