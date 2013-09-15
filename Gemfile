@@ -12,6 +12,7 @@ gem 'capistrano'
 gem 'unicorn'
 gem 'therubyracer'
 
+
 group :doc do
   gem 'sdoc', require: false
 end
@@ -23,4 +24,8 @@ end
 group :assets do
   gem 'uglifier', '>= 1.3.0'
   gem 'coffee-rails', '~> 4.0.0'
+end
+
+group :production do
+  gem 'mysql2'
 end

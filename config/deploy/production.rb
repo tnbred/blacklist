@@ -15,7 +15,7 @@ after "deploy", "deploy:restart"
 
 namespace :deploy do
   task :start, :roles => :app do
-    run "cd #{current_path}; bundle exec unicorn_rails -c #{shared_path}/unicorn.rb -E demo -D"
+    run "cd #{current_path}; bundle exec unicorn_rails -c #{shared_path}/unicorn.rb -E production -D"
   end
 
   task :stop, :roles => :app do
