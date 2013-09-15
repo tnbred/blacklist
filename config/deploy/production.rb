@@ -9,4 +9,21 @@ set :default_environment, { 'PATH' => "/home/blacklist/.rbenv/shims:/home/blackl
 
 ### Serversettings and roles
 # AppServer
-server "54.229.155.71", :app, :db, :webserver
+server "54.229.155.71", :app, :db, :webserver, :primary => true
+
+after "deploy", "deploy:restart"
+
+namespace :deploy do
+  task :start, :roles => :app do
+    run "cd #{current_path}; bundle exec unicorn_rails -c #{shared_path}/unicorn.rb -E demo -D"
+  end
+
+  task :stop, :roles => :app do
+    run "[ -f #{shared_path}/pids/unicorn.pid ] && kill -QUIT $(cat #{shared_path}/pids/unicorn.pid)"
+  end
+
+  task :restart, :roles => :app do
+    stop
+    start
+  end
+end

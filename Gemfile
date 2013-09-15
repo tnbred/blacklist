@@ -9,6 +9,8 @@ gem 'jquery-rails'
 gem 'activeadmin', github: 'gregbell/active_admin', branch: 'rails4'
 gem 'sprockets', '~> 2.0'
 gem 'capistrano'
+gem 'unicorn'
+gem 'therubyracer'
 
 group :doc do
   gem 'sdoc', require: false
