@@ -1,4 +1,4 @@
-set :default_stage, :staging
+set :default_stage, :production
 set :stages, %w(demo staging production)
 
 # Server config
@@ -6,6 +6,7 @@ set :repository, "git@54.229.155.71:root/blacklist.git"
 set :ssh_options, {:forward_agent => true}
 set :use_sudo, false
 set :keep_releases, 5
+set :application, "blacklist"
 
 # Git config
 set :scm, :git
@@ -14,6 +15,8 @@ set :scm_verbose, true
 set :git_enable_submodules, 1
 set :normalize_asset_timestamps, false
 
+require 'capistrano/ext/multistage'
+require 'bundler/capistrano'
 
 
 ### Callbacks

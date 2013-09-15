@@ -1,5 +1,5 @@
 ##### Server specific settings #####
-set :deploy_to, "/var/www/blacklist"
+set :deploy_to, "/srv/www/blacklist"
 set :rails_env, "production"
 set :branch, "production"
 set :user, "blacklist"
