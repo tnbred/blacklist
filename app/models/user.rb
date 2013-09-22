@@ -48,7 +48,7 @@ class User < ActiveRecord::Base
           rank = index
         end
     end
-    rank
+    rank+1
   end
 
   def formatted_name

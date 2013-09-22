@@ -10,6 +10,7 @@ $(function() {
         var list_id = $('#list_table').attr('list_id');
         var user_to_id = $('#'+tr_id).attr('user_to_id');
         var vote = {"list_id":list_id,"user_to_id":user_to_id, "points":points};
+
         $.ajax({
             url: "/votes",
             data: {
@@ -28,7 +29,7 @@ $(function() {
                 $('#'+tr_id).find('.item_points').text(points+new_vote);
                 $('#'+tr_id).find('.item_variation').text(variation+new_vote);
                 var new_option_html = ""
-                for (var i=1;i<=points_left;i++)
+                for (var i=0;i<=points_left;i++)
                 {
                     new_option_html+='<option value='+i+'>'+i+'</option>'
                 }

@@ -23,7 +23,7 @@
         <td>
           <div class="hidden add_point_div">
             <select>
-              <% (1..current_user.available_points_on_given_list(@list)).each do |p| %>
+              <% (0..current_user.available_points_on_given_list(@list)).each do |p| %>
                   <option value="<%= p %>"><%= p %></option>
               <% end %>
             </select>
