@@ -41,6 +41,7 @@ class ListsController < ApplicationController
     end
   end
 
+
   private
 
   def format_votes(votes)

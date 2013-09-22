@@ -21,7 +21,7 @@ module ApplicationHelper
   end
 
   def sidebar?(title)
-    (title == "Home" || title == "Blacklists" || title == "Edit profile") ? false : true
+    (title == "Home" || title == "Blacklists" || title == "Edit profile" || title == "Contact us") ? false : true
   end
 
   def resource_name

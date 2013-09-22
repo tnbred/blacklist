@@ -3,4 +3,5 @@
     <li><%= link_to '<span class="glyphicon glyphicon-chevron-right"></span>Show list'.html_safe, list_path(@list) %></li>
     <li><%= link_to '<span class="glyphicon glyphicon-chevron-right"></span>Your statistics'.html_safe, user_stat_lists_path(list_id: @list.id) %></li>
     <li><%= link_to '<span class="glyphicon glyphicon-chevron-right"></span>List statistics'.html_safe, global_stat_lists_path(list_id: @list.id) %></li>
+    <li><%= link_to '<span class="glyphicon glyphicon-chevron-right"></span>List gossip'.html_safe, comments_path(list_id: @list.id) %></li>
   </ul>

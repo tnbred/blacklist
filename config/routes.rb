@@ -19,5 +19,10 @@ Blacklistv2::Application.routes.draw do
       get 'global_stat_api'
     end
   end
+
+  resources :comments , :only => [:index, :create]
+
+  resources :contacts , :only => [:new, :create]
+
   resources :votes, :only => [:create], :defaults => {:format => 'json'}
 end
