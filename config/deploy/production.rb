@@ -11,6 +11,7 @@ set :default_environment, { 'PATH' => "/home/blacklist/.rbenv/shims:/home/blackl
 # AppServer
 server "54.229.155.71", :app, :db, :webserver, :primary => true
 
+after "deploy", "assets:precompile"
 after "deploy", "deploy:restart"
 
 namespace :deploy do
@@ -25,5 +26,9 @@ namespace :deploy do
   task :restart, :roles => :app do
     stop
     start
+  end
+
+  task :populate do
+    run "rake db:reset && rake db:populate:all"
   end
 end
