@@ -1,10 +1,10 @@
 footer .navbar-default {
     width: 100%;
     border: 1px solid #eaeaea;
-    background-color: #4E4D4A;
     font-family: verdana;
     text-align: center;
-    height: 150px;
+    height: 50px;
+    background:transparent !important;
     clear:both;
 }
 

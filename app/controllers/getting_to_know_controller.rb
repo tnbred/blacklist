@@ -1,0 +1,2 @@
+class GettingToKnowController < ApplicationController
+end

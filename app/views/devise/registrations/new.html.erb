@@ -1,19 +1,29 @@
+<%= provide(:title, "Home") %>
 <div class="row center-vert col-md-offset-2 col-md-7">
-  <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html=>{role: "form"}) do |f| %>
+
+  <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html=>{role: "form"}, :class=>"form-horizontal") do |f| %>
       <%= devise_error_messages! %>
 
-      <div class="row main-page-form">
-        <%= f.email_field :email, :autofocus => true, :class => "col-md-11", :placeholder => "Email address" %>
+      <div class="form-group ">
+        <div class="col-md-11 main-page-form">
+          <%= f.email_field :email, :autofocus => true, :class => "form-control", :placeholder => "Email" %>
+        </div>
       </div>
-      <div class="row main-page-form">
-        <%= f.password_field :password, :class => "col-md-5", :placeholder => "Password" %>
-        <%= f.password_field :password_confirmation, :class => "col-md-5 col-md-offset-1", :placeholder => "Confirm password" %>
+
+      <div class="form-group">
+        <div class="col-md-5 main-page-form">
+          <%= f.password_field :password, :class => "form-control", :placeholder => "Password" %>
+        </div>
+        <div class="col-md-5 col-md-offset-1 main-page-form">
+          <%= f.password_field :password_confirmation, :class => "form-control", :placeholder => "Confirm password" %>
+        </div>
       </div>
-      <div class="row main-page-form">
-        <%= f.submit "Sign up", :class => "col-md-11 btn btn-info" %>
+
+      <div class="form-group">
+        <div class="col-md-11 main-page-form">
+          <%= f.submit "Sign up", :class => "col-md-12 btn btn-info" %>
+        </div>
       </div>
 
   <% end %>
-
-  <%= render "devise/shared/links" %>
 </div>

@@ -4,7 +4,6 @@ Blacklistv2::Application.routes.draw do
   ActiveAdmin.routes(self)
   devise_for :users
 
-
   authenticated :user do
     root to: 'lists#index', as: :authenticated_root
   end

@@ -10,18 +10,22 @@ module ApplicationHelper
       when :success
         "alert-success"
       when :error
-        "alert-error"
+        "alert-danger"
       when :alert
-        "alert-block"
+        "alert-warning"
       when :notice
         "alert-info"
       else
-        flash_type.to_s
+        "alert-info"
     end
   end
 
   def sidebar?(title)
     (title == "Home" || title == "Blacklists" || title == "Edit profile" || title == "Contact us") ? false : true
+  end
+
+  def body_additional_params?(title)
+    (title == "Home") ? true : false
   end
 
   def resource_name

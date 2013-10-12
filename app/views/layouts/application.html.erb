@@ -7,12 +7,15 @@
   <%= stylesheet_link_tag "application", media: "all" %>
   <%= csrf_meta_tags %>
 </head>
-
+<% if body_additional_params?(yield(:title)) %>
+<body id="add_background_image">
+<% else %>
 <body>
+<% end %>
 <div id="wrap" class="container">
   <%= render 'layouts/header' %>
   <div class="row">
-    <% if sidebar?(yield(:title)) %>
+    <% if sidebar?(yield(:title)) && user_signed_in? %>
         <div class="col-md-4">
           <%= render 'layouts/sidebar' %>
         </div>
