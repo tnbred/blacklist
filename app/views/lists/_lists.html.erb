@@ -2,9 +2,10 @@
 <% user_rank = current_user.rank_on_given_list(list) %>
 <% number_of_users_in_list = list.users.size %>
 <% user_percentage = (100-(user_rank.to_f/number_of_users_in_list.to_f*100).ceil) %>
+<% title_votes =  pluralize(points_of_user,"vote") + " left"%>
 
 <li class="list-group-item">
-  <span class="badge"><%= pluralize(points_of_user,"votes") %> left</span>
+  <span class="badge"> <%= link_to title_votes, list_path(list) %></span>
   <%= link_to list.name, list_path(list) , :class=>"lead" %>
   <strong>You're ranked <%= user_rank %> / <%= pluralize(number_of_users_in_list,"person") %></strong>
   <br />

@@ -1,11 +1,15 @@
 .sidebar {
     -moz-border-radius: 15px;
     border-radius: 15px;
-    background-color: #94BA65;
+    background-color: #274667;
 }
 
 .sidebar li {
     padding: 8px;
+}
+
+.sidebar li a:hover {
+    background-color:#687E95;
 }
 
 .sidebar li i {
@@ -14,7 +18,7 @@
 
 .sidebar li a {
     text-align: left;
-    color: #353432;
+    color: #FFFFFF;
     font-size: 20px;
     font-family: verdana;
 }

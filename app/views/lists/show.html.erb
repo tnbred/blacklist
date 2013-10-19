@@ -1,10 +1,18 @@
 <%= provide(:title,"Show list #{@list.name}") %>
-<div><h1><%= @list.name %></h1></div>
+<% points_of_user = @list.users.find { |u| u.id == current_user.id }.try(:available_points_on_given_list,@list) %>
+<% user_rank = current_user.rank_on_given_list(@list) %>
+<% number_of_users_in_list = @list.users.size %>
 
+<div class="panel panel-primary">
+  <!-- Default panel contents -->
+  <div class="panel-heading"><%= @list.name %></div>
+  <div class="panel-body">
+    <p>You are ranked <%= user_rank %> out of <%=  pluralize(number_of_users_in_list,"person") %> and you have <%= pluralize(points_of_user,"vote") %> left. </p>
+  </div>
 <table class="table table-bordered table-hover">
   <thead>
   <tr>
-    <th>#</th>
+    <th>Rank</th>
     <th>Firstname</th>
     <th>Lastname</th>
     <th>Points</th>
@@ -41,5 +49,5 @@
   </tbody>
 </table>
 
-<br />
+</div>
 
