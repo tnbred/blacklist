@@ -8,7 +8,7 @@ gem 'anjlab-bootstrap-rails', '>= 3.0.0.0', :require => 'bootstrap-rails'
 gem 'jquery-rails'
 gem 'activeadmin', github: 'gregbell/active_admin', branch: 'rails4'
 gem 'sprockets', '~> 2.0'
-gem 'capistrano'
+gem 'capistrano', '2.15.5'
 gem 'unicorn'
 gem 'therubyracer'
 

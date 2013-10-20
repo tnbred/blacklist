@@ -1,7 +1,7 @@
 .sidebar {
     -moz-border-radius: 15px;
     border-radius: 15px;
-    background-color: #274667;
+    background-color: #535355;
 }
 
 .sidebar li {
@@ -9,7 +9,7 @@
 }
 
 .sidebar li a:hover {
-    background-color:#687E95;
+    background-color:#919199;
 }
 
 .sidebar li i {
