@@ -3,6 +3,7 @@ module.exports = function(mongoose) {
     var UserSchema = new mongoose.Schema({
       email       : String,
       password    : String,
+      approved    : Boolean,
       salt        : String,
       createdAt   : { type: Date, "default": Date.now },
       updatedAt   : Date,

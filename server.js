@@ -24,14 +24,20 @@ app.use(express.static(path.join(__dirname, 'views/public')));
 // Middleware to check authentication state
 var publicRoutes = [
   "/",
-  "/category/*",
-  "/boss"
+  "/login",
+  "/healthcheck",
+  "/signup"
 ];
 app.all("/*", mw.checkSessions(publicRoutes));
 
 
 app.get("/", controllers.home);
 app.get("/healthcheck", controllers.healthcheck);
+app.get("/login", controllers.login);
+app.post("/login", controllers.login);
+
+
+
 app.get("/category/:name", controllers.category.show);
 
 
