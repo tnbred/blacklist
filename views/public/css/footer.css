@@ -1,0 +1,16 @@
+footer .navbar-default {
+    width: 100%;
+    border: 1px solid #eaeaea;
+    text-align: center;
+    min-height: 20px;
+    background:transparent !important;
+    clear:both;
+}
+
+footer nav li {
+    display:inline;
+}
+
+footer nav p {
+    color: #2790B0;
+}

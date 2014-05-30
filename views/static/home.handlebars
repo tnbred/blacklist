@@ -1,7 +1,34 @@
-<div class="section row"> 
+<div class="row center-vert col-md-offset-2 col-md-7">
 
-<div class="col-md-offset-2 col-md-8 main_content">
-<h1><p class="text-center">Hey Guys, We are a few crazy food lovers that decided to share with you their love of good products !</p></h1>
-</div>
+  <form accept-charset="UTF-8" action="/users" method="post" role="form">
+
+      <div class="form-group ">
+        <div class="col-md-11 main-page-form">
+          <input autofocus="autofocus" class="form-control" id="user_email" name="user[email]" placeholder="Email" type="email" value="" />
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="col-md-5 main-page-form">
+          <input class="form-control" id="user_password" name="user[password]" placeholder="Password" type="password" />
+        </div>
+        <div class="col-md-5 col-md-offset-1 main-page-form">
+          <input class="form-control" id="user_password_confirmation" name="user[password_confirmation]" placeholder="Confirm password" type="password" />
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="col-md-11 main-page-form">
+          <input class="col-md-12 btn btn-info" name="commit" type="submit" value="Sign up" />
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="col-md-11 main-page-form">
+          <small>Already Signed up ? Log in </small><p style="display:inline" class="lead"><a href="/users/sign_in">here</a></p>
+        </div>
+      </div>
+
+</form>
 
 </div>

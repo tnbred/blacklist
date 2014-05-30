@@ -34,6 +34,7 @@ module.exports = function(publicRoutes) {
     if (shouldRedirect) {
       res.redirect("/");
     } else {
+      req.metaData={};
       req.metaData.current_user = req.session.user;
       next();
     }

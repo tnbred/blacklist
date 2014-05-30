@@ -20,8 +20,6 @@ app.use(express.cookieParser(config.Cookie.Secret));
 app.use(express.cookieSession({ secret: config.Session.Secret, cookie: { maxAge: 30 * 24 * 60 * 60 * 1000 }}));
 app.use(express.bodyParser());
 app.use(express.static(path.join(__dirname, 'views/public')));
-app.use(mw.addCategories);
-app.use(mw.addUrl);
 
 // Middleware to check authentication state
 var publicRoutes = [
