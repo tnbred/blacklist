@@ -5,11 +5,13 @@
   "version": "v0.0.1",
   "dependencies": {
     "aws-sdk": "latest",
+    "date-format-lite": "latest",
+    "datejs": "^1.0.0-beta",
     "express": "latest",
+    "express3-handlebars": "latest",
     "handlebars": "latest",
     "mongoose": "latest",
-    "express3-handlebars": "latest",
-    "date-format-lite":"latest"
+    "promise": "^5.0.0"
   },
   "devDependencies": {
     "nodeunit": "latest"

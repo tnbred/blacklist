@@ -1,6 +1,9 @@
 {
-	"@navbar-height":"90px",
-	"@navbar-margin-bottom":"0",
-	"@navbar-inverse-bg":"#363e4c",
-	"@navbar-inverse-border":"#fff"
+	"@brand-primary":"#919199",
+	"$navbar-default-bg":"#535355",
+	"$navbar-default-link-color":"#ffffff",
+	"$list-group-bg":"#535355",
+	"$panel-bg":"#535355",
+	"$table-bg-hover":"#919199",
+	"$link-color":"#4E9CB5",
 }

@@ -9,20 +9,16 @@ module.exports = function(req, res) {
     if (email && password) {
 
       models.User.findByEmail(email, function(error, user) {
-        if (error) {
-          console.log(error.message);
-        } else {
-          if (user !== null) {
-          	console.log(user.approved);
-            if (user.isPasswordMatching(password) && user.approved===true) {
+      	try {
+        	if(error!==null) throw error.message;
+            if(user===null) throw "user-doesnt-exists";
+          	if(!user.isPasswordMatching(password)) throw "password-invalid";
+          	if(user.approved!==true) throw "User hasn't been approved yet.";
               req.session.user = user;
               res.redirect("/");
-            } else {
-              res.redirect("/login?error=password-invalid");
-            }
-          } else {
-            res.redirect("/login?error=user-not-existing");
-          }
+        } catch(error) {
+        	console.log(error);
+        	res.redirect("/login?error=" + error);
         }
       });
     } else {

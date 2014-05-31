@@ -4,6 +4,27 @@
 <div class="col-md-offset-1 col-md-10"> 
 
   <div class="navbar-header navbar-right">
+   <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#blacklist-navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
     <a class="navbar-brand" href="/">The BlackList.</a>
   </div>
+
+  
+  {{#if metaData.current_user}}
+  <div class="collapse navbar-collapse" id="blacklist-navbar-collapse-1">
+    <ul class="nav navbar-nav">
+      {{#if profilePage}}
+       <li class="active"><a href="/user/profile">Profile</a></li>
+       {{else}}
+       <li class=""><a href="/user/profile">Profile</a></li>
+       {{/if}}
+      <li class=""><a href="/user/signout">Sign out</a></li>
+    </ul>
+  </div>
+  {{/if}}
+  
 </nav>

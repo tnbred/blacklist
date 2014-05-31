@@ -1,13 +1,19 @@
+var Promise = require('datejs');
+
 module.exports = function(mongoose) {
     // Initialize schema
     var UserSchema = new mongoose.Schema({
       email       : String,
       password    : String,
       approved    : Boolean,
+      firstName   : String,
+      lastName    : String,
+      nickName    : String,
       salt        : String,
       createdAt   : { type: Date, "default": Date.now },
       updatedAt   : Date,
-      lastLoginAt : Date
+      lastLoginAt : Date,
+      loginCount  : Number
     });
 
     // Indexes:
@@ -123,6 +129,73 @@ module.exports = function(mongoose) {
 
       return this.getSaltedPassword(password, this.salt) === this.password;
     };
+
+    UserSchema.statics.findRank = function(userId,array) {
+      var result=0;
+
+      for(var i in array){
+        result+=1;
+        var toCompare = array[i].userId+"";
+        if(toCompare==userId){
+          break;
+        }
+      }
+      return result;
+    }
+
+    UserSchema.statics.findRankArray = function(votes) {
+      var result=0;
+      var tempHash={};
+      var tempArray=[];
+
+      for(var i in votes){
+        if(!tempHash[votes[i].userToId]){
+        tempHash[votes[i].userToId]=this.findPointsFromVotes(votes[i].userToId,votes)
+        }
+      }
+      Object.keys(tempHash).forEach(function (userId) { 
+        var points = tempHash[userId];
+        tempArray.push({userId: userId,points: points});
+      })
+      tempArray.sort(function(a,b) { return b.points-a.points } );
+      return tempArray;
+    }
+
+    UserSchema.statics.findPointsFromVotes = function(userId,votes) {
+      var result=0;
+      for(var i in votes){
+        var toCompare = votes[i].userToId+""
+        if(toCompare==userId){
+          result+=votes[i].points;
+        }
+      }
+      return result;
+    }
+
+    UserSchema.statics.findPoints = function(userId,rankArray) {
+      var result=0;
+      for(var i in rankArray){
+        var toCompare = rankArray[i].userId+""
+        if(toCompare==userId){
+          result=rankArray[i].points;
+        }
+      }
+      return result;
+    }
+
+    UserSchema.statics.getPointsLeft = function(userId,votes){
+      
+
+      var result=25;
+      for(var i in votes) {
+        var toCompare = votes[i].userId+"";
+        if((userId==toCompare) && (votes[i].createdAt>Date.today().previous().monday())){
+          result-=votes[i].points;
+        }
+      }
+      return result;
+    }
+
 
     /**
      * Finds a user by email.

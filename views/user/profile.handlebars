@@ -1,0 +1,66 @@
+<div class="row col-md-8 col-md-offset-2">
+<h2>Edit User info</h2>
+
+<form accept-charset="UTF-8" action="/user/profile" method="post" role="form">
+    <div class="form-group">
+      <label class="col-lg-2" for="user_email">Email</label>
+      <div class="col-lg-10 main-page-form">
+        <input autofocus="autofocus" class="form-control" id="user_email" name="user[email]" type="email" value="{{metaData.current_user.email}}" />
+      </div>
+    </div>
+
+
+    <div class="form-group">
+      <label class="col-lg-2" for="user_nickname">Nickname</label>
+      <div class="col-lg-10 main-page-form">
+        <input autocomplete="off" class="form-control" id="user_nickname" name="user[nickname]" type="text" value="{{metaData.current_user.nickName}}"/>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="col-lg-2" for="user_current_password">Current password</label>
+      <div class="col-lg-10 main-page-form">
+        <input autocomplete="off" class="form-control" id="user_current_password" name="user[current_password]" type="password" />
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="col-lg-offset-2 col-lg-10">
+        <input class="btn btn-success" name="commit" type="submit" value="Update" />
+      </div>
+    </div>
+</form>
+</div>
+<div class="row col-md-8 col-md-offset-2">
+<h2>Edit User password</h2>
+
+<form accept-charset="UTF-8" action="/user/profile" class="edit_user" id="edit_user" method="post" role="form">
+
+    <div class="form-group">
+      <label class="col-lg-2" for="user_password">Password</label>
+      <div class="col-lg-10 main-page-form">
+        <input autocomplete="off" class="form-control" id="user_password" name="user[password]" type="password" />
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="col-lg-2" for="user_password_confirmation">Confirmation</label>
+      <div class="col-lg-10 main-page-form">
+        <input autocomplete="off" class="form-control" id="user_password_confirmation" name="user[password_confirmation]" type="password" />
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="col-lg-2" for="user_current_password">Current password</label>
+      <div class="col-lg-10 main-page-form">
+        <input autocomplete="off" class="form-control" id="user_current_password" name="user[current_password]" type="password" />
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="col-lg-offset-2 col-lg-10">
+        <input class="btn btn-success" name="commit" type="submit" value="Update" />
+      </div>
+    </div>
+</form>
+</div>

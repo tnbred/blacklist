@@ -5,8 +5,11 @@ module.exports = function(req, res) {
     // Try login
     var email = req.param("email", null);
     var password = req.param("password", null);
+    var password_confirmation = req.param("password_confirmation", null);
 
-    if (email && password) {
+    if (email && password && password_confirmation) {
+      if(password!==password_confirmation) throw "Password doesn't match password confirmation";
+
       var User = models.User;
       var user = new User({
         email: email,
@@ -25,13 +28,15 @@ module.exports = function(req, res) {
         });
       });
     } else {
+    	if(req.metaData.current_user){
+    	 res.redirect("/user/home");
+    	} else {
         res.render(
 		"static/home", {
 			metaData: req.metaData
+		});
 		}
-	);
     }
-
   } catch (error) {
     // Redirect with error
     res.redirect("/?error=" + error.message);

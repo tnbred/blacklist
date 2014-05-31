@@ -32,25 +32,24 @@ app.all("/*", mw.checkSessions(publicRoutes));
 
 
 app.get("/", controllers.home);
+app.post("/", controllers.home);
 app.get("/healthcheck", controllers.healthcheck);
 app.get("/login", controllers.login);
 app.post("/login", controllers.login);
 
+//User routes
+app.get("/user/signout", controllers.user.signout);
+app.get("/user/home", controllers.user.home);
+app.get("/user/profile", controllers.user.profile);
+app.post("/user/profile", controllers.user.updateProfile);
 
+//List routes
+app.get("/user/listData", controllers.list.listData);
+app.get("/lists/:id", controllers.list.show);
 
-app.get("/category/:name", controllers.category.show);
+//Votes routes
+app.post("/votes", controllers.vote.create)
 
-
-//Admin
-
-app.get("/boss", controllers.boss.login);
-app.post("/boss", controllers.boss.login);
-app.get("/boss/register", controllers.boss.register);
-app.post("/boss/register", controllers.boss.register);
-app.get("/boss/article", controllers.article.create);
-app.post("/boss/article", controllers.article.create);
-app.get("/boss/category", controllers.category.create);
-app.post("/boss/category", controllers.category.create);
 
 app.listen(config.FinestLife.port);
 console.log('Listening on port '+ config.FinestLife.port );

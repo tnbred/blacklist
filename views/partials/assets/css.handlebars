@@ -2,6 +2,10 @@
 
 <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css" media="screen" />
 
-<link rel="stylesheet" type="text/css" href="/css/site.css" media="screen" />
+{{#if metaData.current_user}}
+<link rel="stylesheet" type="text/css" href="/css/user.css" media="screen" />
+{{else}}
+<link rel="stylesheet" type="text/css" href="/css/main.css" media="screen" />
+{{/if}}
 
 <link rel="stylesheet" type="text/css" href="/css/footer.css" media="screen" />

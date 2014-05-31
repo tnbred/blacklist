@@ -1,13 +1,8 @@
 body {
 	font-family: 'Lato', sans-serif;
 	font-size: 16px;
-	background-color:#E67224;
+	background-color:#1F1F20;
 	color: #ffffff;
-	background: url(img/background.jpg) fixed no-repeat;
-     -webkit-background-size: cover;
-     -o-background-size: cover;
-     -moz-background-size: cover;
-     background-size: cover;
 }
 
 body h1 {
@@ -32,4 +27,8 @@ span a:hover{
 }
 .center-vert {
   margin-top: 10%;
+}
+
+.displayList {
+  margin-bottom: 100px;
 }
