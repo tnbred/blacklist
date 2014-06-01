@@ -1,9 +1,12 @@
 var express = require('express');
 var exHb    = require("express3-handlebars");
+var cookieParser = require('cookie-parser');
 var controllers = require(__dirname + "/controllers");
 var config = require(__dirname + "/config");
 var path = require('path');
 var mw = require(__dirname + "/middleware");
+var session = require('cookie-session')
+var bodyParser = require('body-parser')
 
 var app = express();
 
@@ -16,9 +19,9 @@ app.set("view engine", "handlebars");
 
 
 // Sessions (@TODO: update keys)
-app.use(express.cookieParser(config.Cookie.Secret));
-app.use(express.cookieSession({ secret: config.Session.Secret, cookie: { maxAge: 30 * 24 * 60 * 60 * 1000 }}));
-app.use(express.bodyParser());
+app.use(cookieParser(config.Cookie.Secret));
+app.use(session({ secret: config.Session.Secret, cookie: { maxAge: 30 * 24 * 60 * 60 * 1000 }}));
+app.use(bodyParser());
 app.use(express.static(path.join(__dirname, 'views/public')));
 
 // Middleware to check authentication state
