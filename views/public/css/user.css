@@ -32,3 +32,9 @@ span a:hover{
 .displayList {
   margin-bottom: 100px;
 }
+
+.comments {
+  margin-top: 10px;
+  margin-bottom: 100px;
+  color: #000;
+}

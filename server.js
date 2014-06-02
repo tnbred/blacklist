@@ -13,7 +13,8 @@ var app = express();
 // Mustache engine
 app.engine("handlebars", exHb({
   defaultLayout : "main",
-  helpers       : require(__dirname + "/presenters/availablePoints.js")
+  helpers       : require(__dirname + "/presenters/availablePoints.js"),
+  helpers       : require(__dirname + "/presenters/formatDate.js")
 }));
 app.set("view engine", "handlebars");
 
@@ -52,6 +53,9 @@ app.get("/lists/:id", controllers.list.show);
 
 //Votes routes
 app.post("/votes", controllers.vote.create)
+
+//Comments routes
+app.post("/comments", controllers.comment.create);
 
 
 app.listen(config.FinestLife.port);

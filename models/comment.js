@@ -3,6 +3,7 @@ module.exports = function(mongoose) {
     var CommentSchema = new mongoose.Schema({
       listId      : mongoose.Schema.Types.ObjectId,
       userId      : mongoose.Schema.Types.ObjectId,
+      nickName    : String,
       comment     : String,
       createdAt   : { type: Date, "default": Date.now },
       updatedAt   : Date

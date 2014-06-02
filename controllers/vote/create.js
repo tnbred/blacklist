@@ -10,7 +10,6 @@ module.exports = function(req, res) {
 
   Vote.find({listId: voteData.list_id,userId : metaData.current_user._id}, function(error,votes){
   var pointsLeft = User.getPointsLeft(metaData.current_user._id,votes)
-  console.log(pointsLeft)
   var vote = new Vote({
         points: voteData.points,
         userId: metaData.current_user._id,
