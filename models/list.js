@@ -24,6 +24,7 @@ module.exports = function(mongoose) {
                 results.totalPeople=users.length;
                 results.currentUser_Rank=User.findRank(metaData.current_user._id,rankArray);
                 results.currentUser_Points=User.findPoints(metaData.current_user._id,rankArray);
+                results.currentUser_PointsLeft=User.getPointsLeft(metaData.current_user._id,votes)
                 results.percentage=(results.currentUser_Rank / results.totalPeople) * 100;
                 results.listName=selfName;
                 results.listId=selfId;
@@ -35,6 +36,7 @@ module.exports = function(mongoose) {
                 	userHash.userRank=User.findRank(users[i]._id,rankArray);
                 	userHash.userPoints=User.findPoints(users[i]._id,rankArray);
                 	userHash.userPointsLeft=User.getPointsLeft(users[i]._id,votes);
+                    userHash.currentUser_PointsLeft=results.currentUser_PointsLeft;
                 	results.users.push(userHash);
                 }
                 results.users.sort(function(a,b) { return b.userPoints-a.userPoints } );

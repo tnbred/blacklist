@@ -5,9 +5,7 @@ module.exports = function(publicRoutes) {
     var shouldRedirect = !loggedIn;
     if (shouldRedirect && req.route.path.length > 0) {
       var route = req.path.substring(1);
-      console.log(req.path);
       var askedRouteSplitted = route.split("/");
-      console.log(askedRouteSplitted);
       shouldRedirect = publicRoutes.indexOf("/" + route) === -1;
       if (shouldRedirect) {
         var isAMatch = function(askedRoute, pubRoute) {

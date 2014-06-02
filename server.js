@@ -13,7 +13,7 @@ var app = express();
 // Mustache engine
 app.engine("handlebars", exHb({
   defaultLayout : "main",
-  helpers       : require(__dirname + "/presenters/header.js")
+  helpers       : require(__dirname + "/presenters/availablePoints.js")
 }));
 app.set("view engine", "handlebars");
 

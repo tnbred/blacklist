@@ -193,8 +193,10 @@ module.exports = function(mongoose) {
           result-=votes[i].points;
         }
       }
-      return result;
+      return (result<0)? 0 : result;
     }
+
+
 
 
     /**
