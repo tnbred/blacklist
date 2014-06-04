@@ -10,16 +10,15 @@ module.exports = function(req, res) {
     if (email && password && password_confirmation) {
       if(password!==password_confirmation) throw "Password doesn't match password confirmation";
 
+
       var User = models.User;
       var user = new User({
         email: email,
         approved: false,
         password: password
       });
-
       user.saltPassword(function(error) {
-        // Save to mongo
-        user.save(function(error) {
+        user.save().then(function(user) {
           if (error) {
             res.redirect("/?error=" + error.message);
           } else {

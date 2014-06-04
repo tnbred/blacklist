@@ -1,5 +1,5 @@
 <div class="row col-md-7 col-md-offset-1 ">
-<div class="panel panel-primary blacklistToLoadLayout displayList" blacklistid={{list._id}}>
+<div class="panel panel-primary blacklistToLoadLayout displayList" blacklistid={{list.id}}>
   <!-- Default panel contents -->
   <div class="panel-heading">{{list.name}}</div>
   <div class="panel-body">
@@ -12,7 +12,7 @@
 <div class="row col-md-3 col-md-offset-1">
 	<div class="row">
 <form accept-charset="UTF-8" action="/comments" method="post" role="form">
-  <input type="hidden" name="comment[listId]" value={{list._id}}>
+  <input type="hidden" name="comment[listId]" value={{list.id}}>
     <div class="form-group">
       <div class="col-lg-10 main-page-form">
       	<textarea autofocus="autofocus" class="form-control" id="user_email" name="comment[text]" type="text" size="35" placeholder="Comment here.." ></textarea>
@@ -31,7 +31,7 @@
 <div class="well"><p>
 	{{comment}}
 	<br>
-	<small class="pull-right">By {{nickName}}, {{formatDate}}</small></p>
+	<small class="pull-right">By {{user.nickname}}, {{formatDate}}</small></p>
 </div>
 {{/each}}
 </div>

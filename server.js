@@ -1,20 +1,32 @@
 var express = require('express');
+var Bookshelf  = require('bookshelf')
+var config = require(__dirname + "/config");
+
+Bookshelf.PG = Bookshelf.initialize({
+  client: 'pg',
+  connection: config.PG.PG_URL
+});
+
 var exHb    = require("express3-handlebars");
 var cookieParser = require('cookie-parser');
 var controllers = require(__dirname + "/controllers");
-var config = require(__dirname + "/config");
 var path = require('path');
 var mw = require(__dirname + "/middleware");
 var session = require('cookie-session')
 var bodyParser = require('body-parser')
+
+
+
+
+
 
 var app = express();
 
 // Mustache engine
 app.engine("handlebars", exHb({
   defaultLayout : "main",
-  helpers       : require(__dirname + "/presenters/availablePoints.js"),
-  helpers       : require(__dirname + "/presenters/formatDate.js")
+  helpers       : require(__dirname + "/presenters/index.js")
+  
 }));
 app.set("view engine", "handlebars");
 

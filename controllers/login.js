@@ -7,18 +7,15 @@ module.exports = function(req, res) {
     var password = req.param("password", null);
 
     if (email && password) {
-
-      models.User.findByEmail(email, function(error, user) {
-      	try {
-        	if(error!==null) throw error.message;
-            if(user===null) throw "user-doesnt-exists";
-          	if(!user.isPasswordMatching(password)) throw "password-invalid";
-          	if(user.approved!==true) throw "User hasn't been approved yet.";
-              req.session.user = user;
-              res.redirect("/");
+      new models.User().query('where', 'email', '=', email).fetch().then(function(user) {
+      try {
+        if(user===null) throw "user-doesnt-exists";
+        if(!user.isPasswordMatching(password)) throw "password-invalid";
+        if(user.get("approved")!==true) throw "User hasn't been approved yet.";
+          req.session.user = user;
+          res.redirect("/");
         } catch(error) {
-        	console.log(error);
-        	res.redirect("/login?error=" + error);
+          res.redirect("/login?error=" + error);
         }
       });
     } else {

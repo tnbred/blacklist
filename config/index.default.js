@@ -3,9 +3,15 @@ var env = process.env;
 
 module.exports = {
   FinestLife: {
-    port : env.PORT ? parseInt(env.PORT, 10) : port
+    port : env.PORT ? parseInt(env.PORT, 10) : 80
   },
-  Mongo: {
-    url : env.MONGO_URL ? parseInt(env.PORT, 10) : mongo_url
+  PG: {
+    PG_URL : env.PG_URL? env.PG_URL : ""
+  },
+  Cookie: {
+    Secret : env.COOKIE_SECRET ? env.COOKIE_SECRET : ""
+  },
+  Session: {
+    Secret : env.SESSION_SECRET ? env.SESSION_SECRET : ""
   }
 };

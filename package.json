@@ -6,6 +6,7 @@
   "dependencies": {
     "aws-sdk": "latest",
     "body-parser": "^1.3.0",
+    "bookshelf": "^0.6.10",
     "cookie-parser": "^1.1.0",
     "cookie-session": "^1.0.2",
     "date-format-lite": "latest",
@@ -13,7 +14,9 @@
     "express": "latest",
     "express3-handlebars": "latest",
     "handlebars": "latest",
+    "knex": "^0.5.14",
     "mongoose": "latest",
+    "pg": "^3.2.0",
     "promise": "^5.0.0"
   },
   "devDependencies": {
