@@ -41,6 +41,8 @@ app.use(express.static(path.join(__dirname, 'views/public')));
 var publicRoutes = [
   "/",
   "/login",
+  "/reset/*",
+  "/reset",
   "/healthcheck",
   "/signup"
 ];
@@ -51,6 +53,9 @@ app.get("/", controllers.home);
 app.post("/", controllers.home);
 app.get("/healthcheck", controllers.healthcheck);
 app.get("/login", controllers.login);
+app.get("/reset/:token", controllers.resetPassword);
+app.post("/reset/:token", controllers.resetPassword);
+
 app.post("/login", controllers.login);
 
 //User routes

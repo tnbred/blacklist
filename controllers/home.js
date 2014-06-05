@@ -9,8 +9,6 @@ module.exports = function(req, res) {
 
     if (email && password && password_confirmation) {
       if(password!==password_confirmation) throw "Password doesn't match password confirmation";
-
-
       var User = models.User;
       var user = new User({
         email: email,
