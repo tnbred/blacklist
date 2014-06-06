@@ -1,7 +1,10 @@
 var models = require(__dirname + "/../models");
 
+
+
 module.exports = function(req, res) {
   try {
+
     // Try login
     var email = req.param("email", null);
     var password = req.param("password", null);
@@ -16,6 +19,7 @@ module.exports = function(req, res) {
         password: password
       });
       user.saltPassword(function(error) {
+
         user.save().then(function(user) {
           if (error) {
             res.redirect("/?error=" + error.message);

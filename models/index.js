@@ -125,7 +125,6 @@ var User = Bookshelf.Model.extend({
 		var result = 25;
 		for (var i in votes) {
 			if ((userId == votes[i].user_id) && (votes[i].created_at > Date.today().previous().monday())) {
-				console.log("he")
 				result -= votes[i].points;
 			}
 		}

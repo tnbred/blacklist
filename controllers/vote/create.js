@@ -1,30 +1,34 @@
 var models = require(__dirname + "/../../models");
 
 module.exports = function(req, res) {
-  var voteData = req.param("vote",null);
-  var tr_id = req.param("tr_id",null);
+  var voteData = req.param("vote", null);
+  var tr_id = req.param("tr_id", null);
   var metaData = req.metaData;
-   
-  var Vote = models.Vote;
-  var User = models.User;
 
-  Vote.find({listId: voteData.list_id,userId : metaData.current_user._id}, function(error,votes){
-  var pointsLeft = User.getPointsLeft(metaData.current_user._id,votes)
-  var vote = new Vote({
-        points: voteData.points,
-        userId: metaData.current_user._id,
-        userToId: voteData.user_to_id,
-        listId: voteData.list_id
+  var Vote = models.Vote
+  var User = models.User
+  var user = new User()
+  var qb = new Vote().query()
+
+  qb.where("list_id", "=", voteData.list_id).
+  andWhere("user_id", "=", metaData.current_user.id)
+    .select()
+    .then(function(votes) {
+      var pointsLeft = user.getPointsLeft(metaData.current_user.id, votes)
+      var vote = new Vote({
+        points: parseInt(voteData.points),
+        user_id: parseInt(metaData.current_user.id),
+        user_to_id: parseInt(voteData.user_to_id),
+        list_id: parseInt(voteData.list_id)
       });
-  vote.save(function(error){
-    if(error) res.json(error);
-    var hash = {};
-    hash.points=vote.points;
-    hash.message="Vote saved! (+"+vote.points+")";
-    hash.tr_id=tr_id;
-    hash.points_left=pointsLeft;
-    res.json(hash);
-  });
-  })
- 
+      vote.save().then(function(vote) {
+        var hash = {};
+        hash.points = vote.toJSON().points;
+        hash.message = "Vote saved! (+" + vote.toJSON().points + ")";
+        hash.tr_id = tr_id;
+        hash.points_left = pointsLeft;
+        res.json(hash);
+      })
+    })
+
 };
