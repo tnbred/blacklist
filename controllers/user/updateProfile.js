@@ -11,7 +11,7 @@ module.exports = function(req, res) {
   new_user.fetch().then(function(current_user) {
     try {
       if (user.current_password === null) throw "No password provided";
-      if (!current_user.isPasswordMatching(user.current_password)) throw "password-invalid";
+      if (!current_user.isPasswordMatching(user.current_password)) throw "Password invalid";
       if (user.password) {
         if (user.password !== user.password_confirmation) throw "password confirmation doesn't match password";
       }
@@ -27,7 +27,13 @@ module.exports = function(req, res) {
       }
 
     } catch (error) {
-      res.redirect("/user/profile?error=" + error);
+      res.render("user/profile", {
+        message: {
+          alertType: "alert-danger",
+          strongMessage: "Error!",
+          messageText: error,
+        }
+      });
     }
 
   });
@@ -35,10 +41,12 @@ module.exports = function(req, res) {
   function finish(current_user) {
     current_user.save()
     req.login(current_user, function(err) {
-      if (err) {
-        return next(err);
+        res.render("user/profile", {
+          message: {
+            alertType: "alert-success",
+            strongMessage: "Alright!",
+            messageText: "Your info were successfully updated!"
+          }
+        });
       }
-      res.redirect("/user/profile?success=1");
-    });
-  }
-};
+    };

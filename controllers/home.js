@@ -11,7 +11,7 @@ module.exports = function(req, res) {
     var password_confirmation = req.param("password_confirmation", null);
 
     if (email && password && password_confirmation) {
-      if(password!==password_confirmation) throw "Password doesn't match password confirmation";
+      if (password !== password_confirmation) throw "Password doesn't match password confirmation";
       var User = models.User;
       var user = new User({
         email: email,
@@ -22,21 +22,34 @@ module.exports = function(req, res) {
 
         user.save().then(function(user) {
           if (error) {
-            res.redirect("/?error=" + error.message);
+            res.render("static/home", {
+              message: {
+                alertType: "alert-danger",
+                strongMessage: "Error!",
+                messageText: "Something went wrong during the registration."
+              }
+            });
+
           } else {
-            res.redirect("/?success=sign-up-successfull");
+            res.render("static/login", {
+              message: {
+                alertType: "alert-success",
+                strongMessage: "Registration successful!",
+                messageText: "You can now log in!"
+              }
+            });
           }
         });
       });
     } else {
-    	if(req.metaData.current_user){
-    	 res.redirect("/user/home");
-    	} else {
+      if (req.metaData.current_user) {
+        res.redirect("/user/home");
+      } else {
         res.render(
-		"static/home", {
-			metaData: req.metaData
-		});
-		}
+          "static/home", {
+            metaData: req.metaData
+          });
+      }
     }
   } catch (error) {
     // Redirect with error

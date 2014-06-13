@@ -11,7 +11,15 @@
   		{{> shared/header}}  
   	</div>
 
+
     <div class="row full-screen">
+      {{#if message }}
+      <div class="alert {{message.alertType}} alert-dismissable">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+        <strong>{{message.strongMessage}}</strong> {{message.messageText}}
+      </div>
+      {{/if}}
+      
     	 {{{body}}}
     </div>
 
