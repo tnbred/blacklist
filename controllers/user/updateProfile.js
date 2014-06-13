@@ -8,6 +8,7 @@ module.exports = function(req, res) {
     id: req.metaData.current_user.id
   })
 
+  //console.log( req.metaData );
   new_user.fetch().then(function(current_user) {
     try {
       if (user.current_password === null) throw "No password provided";
@@ -28,11 +29,19 @@ module.exports = function(req, res) {
 
     } catch (error) {
       res.render("user/profile", {
-        message: {
+        message: [{
           alertType: "alert-danger",
           strongMessage: "Error!",
           messageText: error,
-        }
+          display: true
+        }, {
+          alertType: 'alert-success',
+          strongMessage: 'info2',
+          messageText: 'info3',
+          display: true
+
+        }],
+        metaData: req.metaData
       });
     }
 
@@ -47,6 +56,6 @@ module.exports = function(req, res) {
             strongMessage: "Alright!",
             messageText: "Your info were successfully updated!"
           }
-        });
-      }
+        })
+      })
     };

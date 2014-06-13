@@ -5,7 +5,6 @@ module.exports = function(req, res) {
     // Try login
     var saltToken = req.param("token", null);
     var sentUser = req.param("user", null);
-
     if (saltToken) {
       if (sentUser) {
         try {
