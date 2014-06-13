@@ -23,21 +23,40 @@ module.exports = function(req, res) {
         user.save().then(function(user) {
           if (error) {
             res.render("static/home", {
-              message: {
+              message: [{
                 alertType: "alert-danger",
                 strongMessage: "Error!",
-                messageText: "Something went wrong during the registration."
-              }
+                messageText: "Something went wrong during the registration.",
+                display: true
+              }, {
+                alertType: 'alert-success',
+                strongMessage: 'info2',
+                messageText: 'info3',
+                display: false
+
+              }],
+              metaData: req.metaData
             });
 
           } else {
             res.render("static/login", {
-              message: {
+              message: [{
                 alertType: "alert-success",
                 strongMessage: "Registration successful!",
                 messageText: "You can now log in!"
-              }
+                display: true
+              }, {
+                alertType: 'alert-success',
+                strongMessage: 'info2',
+                messageText: 'info3',
+                display: false
+
+              }],
+              metaData: req.metaData
             });
+
+
+
           }
         });
       });
