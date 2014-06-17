@@ -8,13 +8,13 @@ module.exports = function(req, res) {
 
     if (email && password) {
       new models.User().query('where', 'email', '=', email).fetch().then(function(user) {
-      try {
-        if(user===null) throw "user-doesnt-exists";
-        if(!user.isPasswordMatching(password)) throw "password-invalid";
-        if(user.get("approved")!==true) throw "User hasn't been approved yet.";
+        try {
+          if (user === null) throw "user-doesnt-exists";
+          if (!user.isPasswordMatching(password)) throw "password-invalid";
+          if (user.get("approved") !== true) throw "User hasn't been approved yet.";
           req.session.user = user;
           res.redirect("/");
-        } catch(error) {
+        } catch (error) {
           res.redirect("/login?error=" + error);
         }
       });

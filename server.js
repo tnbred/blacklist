@@ -9,9 +9,8 @@ Bookshelf.PG = Bookshelf.initialize({
 
 var exHb    = require("express3-handlebars");
 var cookieParser = require('cookie-parser');
-var controllers = require(__dirname + "/controllers");
+var routes = require(__dirname + "/routes");
 var path = require('path');
-var mw = require(__dirname + "/middleware");
 var session = require('cookie-session')
 var bodyParser = require('body-parser')
 
@@ -37,43 +36,7 @@ app.use(session({ secret: config.Session.Secret, cookie: { maxAge: 30 * 24 * 60 
 app.use(bodyParser());
 app.use(express.static(path.join(__dirname, 'views/public')));
 
-// Middleware to check authentication state
-var publicRoutes = [
-  "/",
-  "/login",
-  "/reset/*",
-  "/reset",
-  "/healthcheck",
-  "/signup"
-];
-app.all("/*", mw.checkSessions(publicRoutes));
+routes(app)
 
-
-app.get("/", controllers.home);
-app.post("/", controllers.home);
-app.get("/healthcheck", controllers.healthcheck);
-app.get("/login", controllers.login);
-app.get("/reset/:token", controllers.resetPassword);
-app.post("/reset/:token", controllers.resetPassword);
-
-app.post("/login", controllers.login);
-
-//User routes
-app.get("/user/signout", controllers.user.signout);
-app.get("/user/home", controllers.user.home);
-app.get("/user/profile", controllers.user.profile);
-app.post("/user/profile", controllers.user.updateProfile);
-
-//List routes
-app.get("/user/listData", controllers.list.listData);
-app.get("/lists/:id", controllers.list.show);
-
-//Votes routes
-app.post("/votes", controllers.vote.create)
-
-//Comments routes
-app.post("/comments", controllers.comment.create);
-
-
-app.listen(config.FinestLife.port);
-console.log('Listening on port '+ config.FinestLife.port );
+app.listen(config.port);
+console.log('Listening on port '+ config.port );

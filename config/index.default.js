@@ -1,10 +1,7 @@
-
 var env = process.env;
 
 module.exports = {
-  FinestLife: {
-    port : env.PORT ? parseInt(env.PORT, 10) : 80
-  },
+  port: env.PORT ? parseInt(env.PORT, 10) : 1337,
   PG: {
     PG_URL : env.PG_URL? env.PG_URL : ""
   },

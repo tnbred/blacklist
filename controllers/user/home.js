@@ -4,7 +4,6 @@ module.exports = function(req, res) {
   var current_user = req.metaData.current_user
   var User = models.User;
   var user = new User(current_user);
-  console.log(current_user)
 
   user.lists().fetch().then(function(lists){
     res.render("user/home", {
