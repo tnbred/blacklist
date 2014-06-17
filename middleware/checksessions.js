@@ -1,6 +1,6 @@
 module.exports = function(publicRoutes) {
   return function(req, res, next) {
-    var loggedIn = typeof req.session.user !== "undefined";
+    var loggedIn = typeof req.user !== "undefined";
 
     var shouldRedirect = !loggedIn;
     if (shouldRedirect && req.route.path.length > 0) {
@@ -35,7 +35,7 @@ module.exports = function(publicRoutes) {
       res.redirect("/");
     } else {
       req.metaData={};
-      req.metaData.current_user = req.session.user;
+      req.metaData.current_user = req.user;
       next();
     }
 

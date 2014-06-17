@@ -14,14 +14,18 @@ module.exports = function(req, res) {
           if (!(newPassword && newPasswordConfirmation)) throw "You have to fill all the required inputs";
           if (newPassword !== newPasswordConfirmation) throw "Password doesn't match password confirmation";
           new models.User().query('where', 'salt', '=', saltToken).fetch().then(function(user) {
-            user.set("password",newPassword)
+            user.set("password", newPassword)
             user.saltPassword(function(error) {
               user.save().then(function(user) {
                 if (error) {
                   res.redirect("/?error=" + error.message);
                 } else {
-                  req.session.user = user
-                  res.redirect("/")
+                  req.login(user, function(err) {
+                    if (err) {
+                      return next(err);
+                    }
+                    res.redirect("/");
+                  });
                 }
               })
             })

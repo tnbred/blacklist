@@ -16,6 +16,8 @@
     "handlebars": "latest",
     "knex": "^0.5.14",
     "mongoose": "latest",
+    "passport": "^0.2.0",
+    "passport-local": "^1.0.0",
     "pg": "^3.2.0",
     "promise": "^5.0.0"
   },

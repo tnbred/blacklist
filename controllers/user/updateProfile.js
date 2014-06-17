@@ -5,7 +5,7 @@ module.exports = function(req, res) {
   var user = req.param("user", null)
   var User = models.User
   var new_user = new User({
-    id: req.session.user.id
+    id: req.metaData.current_user.id
   })
 
   new_user.fetch().then(function(current_user) {
@@ -15,10 +15,10 @@ module.exports = function(req, res) {
       if (user.password) {
         if (user.password !== user.password_confirmation) throw "password confirmation doesn't match password";
       }
-      if (user.nickname) current_user.set("nickname",user.nickname);
-      if (user.email) current_user.set("email",user.email);
+      if (user.nickname) current_user.set("nickname", user.nickname);
+      if (user.email) current_user.set("email", user.email);
       if (user.password) {
-        current_user.set("password",user.password);
+        current_user.set("password", user.password);
         current_user.saltPassword(function(error) {
           finish(current_user);
         });
@@ -34,7 +34,11 @@ module.exports = function(req, res) {
 
   function finish(current_user) {
     current_user.save()
-    req.session.user = current_user;
-    res.redirect("/user/profile?success=1");
+    req.login(current_user, function(err) {
+      if (err) {
+        return next(err);
+      }
+      res.redirect("/user/profile?success=1");
+    });
   }
 };

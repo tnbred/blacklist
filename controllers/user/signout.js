@@ -1,4 +1,4 @@
 module.exports = function(req, res) {
-  req.session.user=null;
-  res.redirect("/?success=sign-out-successfull");
+  req.logout()
+  res.redirect("/?success=sign-out-successfull")
 };
