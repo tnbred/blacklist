@@ -43,7 +43,7 @@ module.exports = function(req, res) {
               message: [{
                 alertType: "alert-success",
                 strongMessage: "Registration successful!",
-                messageText: "You can now log in!"
+                messageText: "You can now log in!",
                 display: true
               }, {
                 alertType: 'alert-success',

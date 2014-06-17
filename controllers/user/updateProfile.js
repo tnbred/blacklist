@@ -1,4 +1,5 @@
 var models = require(__dirname + "/../../models");
+var validation = require(__dirname + '/../validations/updateProfileValidation')
 
 module.exports = function(req, res) {
 
@@ -7,24 +8,17 @@ module.exports = function(req, res) {
   var new_user = new User({
     id: req.metaData.current_user.id
   })
-
-  //console.log( req.metaData );
   new_user.fetch().then(function(current_user) {
     try {
-      if (user.current_password === null) throw "No password provided";
-      if (!current_user.isPasswordMatching(user.current_password)) throw "Password invalid";
+      validation.checkPostedInfo(current_user, user);
+      message = validation.updatePostedInfo(current_user, user, req, res);
+
       if (user.password) {
-        if (user.password !== user.password_confirmation) throw "password confirmation doesn't match password";
-      }
-      if (user.nickname) current_user.set("nickname", user.nickname);
-      if (user.email) current_user.set("email", user.email);
-      if (user.password) {
-        current_user.set("password", user.password);
         current_user.saltPassword(function(error) {
-          finish(current_user);
+          finish(current_user, message, req, res);
         });
       } else {
-        finish(current_user);
+        finish(current_user, message, req, res);
       }
 
     } catch (error) {
@@ -46,16 +40,16 @@ module.exports = function(req, res) {
     }
 
   });
+};
 
-  function finish(current_user) {
-    current_user.save()
-    req.login(current_user, function(err) {
-        res.render("user/profile", {
-          message: {
-            alertType: "alert-success",
-            strongMessage: "Alright!",
-            messageText: "Your info were successfully updated!"
-          }
-        })
-      })
-    };
+
+function finish(current_user, message, req, res) {
+  current_user.save();
+  req.login(current_user, function(err) {
+    res.render("user/profile", {
+      message: message,
+      metaData: req.metaData,
+    })
+  })
+
+}
