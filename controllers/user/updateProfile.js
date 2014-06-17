@@ -15,10 +15,11 @@ module.exports = function(req, res) {
 
       if (user.password) {
         current_user.saltPassword(function(error) {
-          finish(current_user, message, req, res);
-        });
-      } else {
-        finish(current_user, message, req, res);
+          finish(current_user , new_user , message , req , res);
+        }); 
+      }
+      else {
+        finish( current_user , new_user , message  , req , res);
       }
 
     } catch (error) {
@@ -42,14 +43,13 @@ module.exports = function(req, res) {
   });
 };
 
-
-function finish(current_user, message, req, res) {
+function finish( current_user , new_user , message , req , res) {
   current_user.save();
-  req.login(current_user, function(err) {
+  req.session.user = current_user;
+  new_user.fetch().then(function(current_user) {
     res.render("user/profile", {
-      message: message,
-      metaData: req.metaData,
-    })
-  })
-
+      message : message , 
+      metaData : req.metaData,
+    });
+  });
 }
