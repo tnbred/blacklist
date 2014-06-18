@@ -1,5 +1,5 @@
 {
-  "name": "finestlife",
+  "name": "blacklist",
   "description": "Web application",
   "author": "Thomas Bredillet",
   "version": "v0.0.1",
@@ -15,7 +15,6 @@
     "express3-handlebars": "latest",
     "handlebars": "latest",
     "knex": "^0.5.14",
-    "mongoose": "latest",
     "passport": "^0.2.0",
     "passport-local": "^1.0.0",
     "pg": "^3.2.0",
@@ -26,14 +25,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:Woorank/socket-report-generation.git"
+    "url": "git@github.com:tnbredillet/blacklist.git"
   },
   "engines": {
-    "node": ">= 0.8.0"
+    "node": ">= 0.10.0"
   },
   "scripts": {
-    "start": "node ./src/Server",
+    "start": "node server",
     "test": "nodeunit ./tests/*"
-  },
-  "private": true
+  }
 }
