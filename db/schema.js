@@ -54,6 +54,84 @@ pg.connect(connectionString, function(err, client, done) {
       return Math.floor(Math.random() * (max - min + 1)) + min;
     }
 
+    function createUser(firstName, lastName, email) {
+
+      if (!email) email = firstName + "." + lastName + "@gmail.com"
+
+      var user = new User({
+        email: email.toLowerCase(),
+        approved: true,
+        password: firstName.toLowerCase(),
+        firstname: firstName,
+        lastname: lastName
+      })
+
+      user.saltPassword(function(error) {
+        // Save to mongo
+        user.save().then(function(user) {
+          console.log("Created user " + user.toJSON().email)
+          new ListUser({
+            user_id: user.toJSON().id,
+            list_id: 1
+          }).save().then(function(listuser) {
+            console.log("Asigned " + listuser.toJSON().user_id + " to list " + listuser.toJSON().list_id)
+          })
+        })
+      })
+    }
+
+    var list = new List({
+      name: "Top Assholes 2014",
+    });
+    list.save()
+    console.log("Created list " + list.toJSON().name)
+
+    createUser("Thomas", "Bredillet", "tnbredillet@gmail.com")
+    createUser("Antoine", "Dematteo")
+    createUser("Francois", "Hollande")
+    createUser("Manuel", "Valls")
+    createUser("Francois", "Cope")
+    createUser("Nicolas", "Sarkozy")
+    createUser("Barrack", "Obama")
+    createUser("Angela", "Merkel")
+    createUser("Alexandre", "Bessis")
+    createUser("Miley", "Cyrus")
+    createUser("Justin", "Bieber")
+    createUser("Amelie", "Nothomb")
+    createUser("Les", "Chinois")
+    createUser("Le", "Fisc")
+    createUser("Vladimir", "Putin")
+    createUser("David", "Cameron")
+    createUser("Anne", "Hidalgo")
+    createUser("Les", "Feministes")
+    createUser("Jonathan 'Mozart'", "Hadida")
+    createUser("Sncf", "Ratp")
+    createUser("Les", "Flics")
+    createUser("Les", "Gros")
+
+    numberOfCreatedUser=21
+
+    for (var i = 1; i <= numberOfCreatedUser; i++) {
+      new Vote({
+        user_id: i,
+        user_to_id: getRandomInt(1, numberOfCreatedUser),
+        points: getRandomInt(1, 6),
+        list_id: 1
+      }).save().then(function(vote) {
+        console.log("Voted " + vote.toJSON().points + " points from " + vote.toJSON().user_id + " to " + vote.toJSON().user_to_id + " on list " + vote.toJSON().list_id)
+      })
+    }
+
+  } else if (process.argv[2] == "seed2") {
+    var List = models.List
+    var User = models.User
+    var ListUser = models.ListUser
+    var Vote = models.Vote
+
+    function getRandomInt(min, max) {
+      return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
     var list = new List({
       name: "NYU Class 2014",
     });
@@ -141,12 +219,6 @@ pg.connect(connectionString, function(err, client, done) {
     });
 
   }
-
-
-
-
-
-
 
 
 

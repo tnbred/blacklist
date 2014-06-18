@@ -10,6 +10,13 @@ module.exports = function(req, res) {
 	}).fetch({
 		withRelated: ['comments', 'comments.user']
 	}).then(function(list) {
-		res.render("list/show", {metaData: req.metaData, list: list.toJSON(), comments: list.related("comments").toJSON()});
+		commentsSorted = list.related("comments").toJSON().sort(function(a, b) {
+			return b.created_at.getTime() - a.created_at.getTime()
+		});
+		res.render("list/show", {
+			metaData: req.metaData,
+			list: list.toJSON(),
+			comments: commentsSorted
+		});
 	})
 };

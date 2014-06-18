@@ -40,7 +40,7 @@ module.exports = function(req, res) {
     }
 
     results.users.sort(function(a, b) {
-      return b.userPoints - a.userPoints
+      return a.userRank - b.userRank
     });
     if (layout) {
       res.render("list/_list", {
