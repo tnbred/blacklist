@@ -1,5 +1,4 @@
 var models = require(__dirname + "/../../models");
-
 module.exports = function(req, res) {
   var current_user = req.metaData.current_user
   var User = models.User;
