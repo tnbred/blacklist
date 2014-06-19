@@ -12,23 +12,42 @@ module.exports = function(req, res) {
 
   qb.where("list_id", "=", voteData.list_id).
   andWhere("user_id", "=", metaData.current_user.id)
-    .select()
-    .then(function(votes) {
-      var pointsLeft = user.getPointsLeft(metaData.current_user.id, votes)
-      var vote = new Vote({
-        points: parseInt(voteData.points),
-        user_id: parseInt(metaData.current_user.id),
-        user_to_id: parseInt(voteData.user_to_id),
-        list_id: parseInt(voteData.list_id)
-      });
-      vote.save().then(function(vote) {
-        var hash = {};
-        hash.points = vote.toJSON().points;
-        hash.message = "Vote saved! (+" + vote.toJSON().points + ")";
-        hash.tr_id = tr_id;
-        hash.points_left = pointsLeft;
-        res.json(hash);
-      })
-    })
+  .select()
+  .then(function(votes) {
+    var pointsLeft = user.getPointsLeft(metaData.current_user.id, votes)
+    var vote = new Vote({
+      points: parseInt(voteData.points),
+      user_id: parseInt(metaData.current_user.id),
+      user_to_id: parseInt(voteData.user_to_id),
+      list_id: parseInt(voteData.list_id)
+    });
+    try{
+      if( vote.toJSON().points > 0 ){
+        vote.save().then(function(vote) {
+          console.log( vote.toJSON().points);
+
+          var hash = {};
+          hash.points = vote.toJSON().points;
+          hash.message = "Vote saved! (+" + vote.toJSON().points + ")";
+          hash.tr_id = tr_id;
+          hash.points_left = pointsLeft;
+          res.json(hash);
+        });
+      }
+      else{
+        throw "negative and null votes are forbidden!"
+      }
+    }
+    catch(error){
+      var hash = {};
+      hash.points = vote.toJSON().points;
+      hash.message = error;
+      hash.tr_id = tr_id;
+      hash.points_left = pointsLeft;
+      res.json(hash);
+    }
+  })
 
 };
+
+

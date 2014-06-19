@@ -9,7 +9,6 @@ module.exports = function(req, res) {
     if (saltToken) {
       if (sentUser) {
         try {
-          console.log( "blabla");
           var newPassword = sentUser["password"];
           var newPasswordConfirmation = sentUser["password_confirmation"]
           if (!(newPassword && newPasswordConfirmation)) throw "You have to fill all the required inputs";
