@@ -7,6 +7,7 @@ module.exports = function(req, res) {
   var layout = req.param("layout", null)
   var metaData = req.metaData
   var User = models.User
+  var Vote = models.Vote
 
   new List({
     id: listId
@@ -20,13 +21,14 @@ module.exports = function(req, res) {
     var rankArray = user.findRankArray(votes)
     var current_user_id = metaData.current_user.id
     var results = {}
-    results.totalPeople = users.length;
-    results.listName = list.name;
-    results.listId = list.id;
-    results.currentUser_Points = user.findPointsOnListFromRankArray(current_user_id, rankArray);
+    results.totalPeople = users.length
+    results.listName = list.name
+    results.listId = list.id
+    results.latestVotes = new Vote().getLatestVotes(votes,users)
+    results.currentUser_Points = user.findPointsOnListFromRankArray(current_user_id, rankArray)
     results.currentUser_PointsLeft = user.getPointsLeft(current_user_id, votes)
-    results.currentUser_Rank = user.findRank(current_user_id, rankArray, results.totalPeople);
-    results.percentage = 100-(results.currentUser_Rank / results.totalPeople) * 100;
+    results.currentUser_Rank = user.findRank(current_user_id, rankArray, results.totalPeople)
+    results.percentage = 100-(results.currentUser_Rank / results.totalPeople) * 100
 
     results.users = [];
     for (var i in users) {

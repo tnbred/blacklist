@@ -1,9 +1,15 @@
 <span class="badge"> <a href="/lists/{{results.listId}}">{{results.currentUser_PointsLeft}} votes left</a></span>
-  <a class="lead" href="/lists/{{results.listId}}">{{results.listName}}</a>
-  <strong>You're ranked {{results.currentUser_Rank}} / {{results.totalPeople}} people</strong>
-  <br />
-  <div class="progress progress-striped">
-    <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100" style="width: {{results.percentage}}%">
-      <span class="sr-only">{{results.percentage}}% Complete</span>
-    </div>
-  </div>
+<a class="lead" href="/lists/{{results.listId}}">{{results.listName}}</a>
+<strong>You're ranked {{results.currentUser_Rank}} / {{results.totalPeople}} people</strong>
+<br />
+<div class="progress progress-striped">
+	<div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100" style="width: {{results.percentage}}%">
+		<span class="sr-only">{{results.percentage}}% Complete</span>
+	</div>
+</div>
+
+<ul>
+	{{#each results.latestVotes}}
+	<div class="alert alert-info">+{{points}} for {{userTo.firstname}} {{userTo.lastname}} ! {{formatDate}}</div>
+	{{/each}}
+</ul>

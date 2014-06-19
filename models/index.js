@@ -188,8 +188,30 @@ var Vote = Bookshelf.Model.extend({
 	},
 	list: function() {
 		return this.belongsTo(List);
-	}
+	},
+	getLatestVotes: function(votes, users) {
+		var latestVotes = votes
+		latestVotes.sort(function(a, b) {
+			return b.created_at - a.created_at
+		});
 
+		latestVotes = latestVotes.slice(0, 5)
+		for (var i in latestVotes) {
+			var temp = {}
+			var user = null;
+			var userTo = null;
+			temp.points = latestVotes[i].points
+			temp.created_at = latestVotes[i].created_at
+			for (var j in users) {
+				if (users[j].id == latestVotes[i].user_to_id) {
+					temp.userTo = users[i]
+				}
+			}
+			latestVotes[i]=temp
+		}
+
+		return latestVotes
+	}
 });
 
 var Comment = Bookshelf.Model.extend({
