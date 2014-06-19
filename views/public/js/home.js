@@ -17,12 +17,16 @@ $(function() {
             url: "/votes",
             data: {
                 "vote":vote,
-                "tr_id": tr_id
+                "tr_id": tr_id,
+                "error": error
             },
             type: "POST",
             dataType: 'json',
             success: function (data, textStatus) {
-                handleVoteResponse(data,'alert-success');
+                alert( error );               
+                var error = data['error'];
+                if( error === true ) handleVoteResponse(data,'alert-danger');
+                if( error === false ) handleVoteResponse(data,'alert-success');
                 var tr_id = data['tr_id'];
                 var points_left = data['points_left'];
                 var new_vote = parseInt(data['points']);

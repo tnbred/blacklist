@@ -24,13 +24,12 @@ module.exports = function(req, res) {
     try{
       if( vote.toJSON().points > 0 ){
         vote.save().then(function(vote) {
-          console.log( vote.toJSON().points);
-
           var hash = {};
           hash.points = vote.toJSON().points;
           hash.message = "Vote saved! (+" + vote.toJSON().points + ")";
           hash.tr_id = tr_id;
           hash.points_left = pointsLeft;
+          hash.error = true;
           res.json(hash);
         });
       }
@@ -44,6 +43,7 @@ module.exports = function(req, res) {
       hash.message = error;
       hash.tr_id = tr_id;
       hash.points_left = pointsLeft;
+      hash.error = true;
       res.json(hash);
     }
   })

@@ -9,6 +9,8 @@ module.exports = function(req, res) {
     id: req.metaData.current_user.id
   })
   new_user.fetch().then(function(current_user) {
+      console.log(new_user.toJSON());
+
     try {
       validation.checkPostedInfo( current_user , user ); //check validity of posted info
       message = validation.updatePostedInfo( current_user , user , req , res ); //create action message

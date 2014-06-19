@@ -13,7 +13,7 @@ module.exports = function(req, res) {
       if( user ){
         user.saltPassword(function(error) {
           user.save().then(function(user) {
-            validation.redirectRegistration( res , req , error );
+            validation.redirectRegistration( res , req , user , error );
           });
         })
       }
