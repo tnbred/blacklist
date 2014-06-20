@@ -10,6 +10,6 @@
 
 <ul>
 	{{#each results.latestVotes}}
-	<div class="alert alert-info">+{{points}} for {{userTo.firstname}} {{userTo.lastname}} ! {{formatDate}}</div>
+	<div class="alert alert-info">{{userTo.firstname}} {{userTo.lastname}} (+{{points}} points) <small class="pull-right">{{formatDate}}</small></div>
 	{{/each}}
 </ul>
