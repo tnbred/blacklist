@@ -191,6 +191,7 @@ var Vote = Bookshelf.Model.extend({
 	},
 	getLatestVotes: function(votes, users) {
 		var latestVotes = votes
+
 		latestVotes.sort(function(a, b) {
 			return b.created_at - a.created_at
 		});
@@ -204,7 +205,7 @@ var Vote = Bookshelf.Model.extend({
 			temp.created_at = latestVotes[i].created_at
 			for (var j in users) {
 				if (users[j].id == latestVotes[i].user_to_id) {
-					temp.userTo = users[i]
+					temp.userTo = users[j]
 				}
 			}
 			latestVotes[i]=temp
