@@ -49,7 +49,7 @@ module.exports = {
 			points: 5,
 			created_at: this.today,
 			userTo: {
-				id: '3'
+				id: '1'
 			}
 		}, {
 			points: 10,
@@ -61,7 +61,7 @@ module.exports = {
 			points: 20,
 			created_at: this.today,
 			userTo: {
-				id: '1'
+				id: '3'
 			}
 		}]
 		test.deepEqual(latestVotes, res)
