@@ -8,6 +8,7 @@ module.exports = function(req, res) {
   var new_user = new User({
     id: req.metaData.current_user.id
   })
+console.log( req.session.toJSON());
   new_user.fetch().then(function(current_user) {
       console.log(new_user.toJSON());
 
