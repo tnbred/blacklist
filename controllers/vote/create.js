@@ -29,7 +29,7 @@ module.exports = function(req, res) {
           hash.message = "Vote saved! (+" + vote.toJSON().points + ")";
           hash.tr_id = tr_id;
           hash.points_left = pointsLeft;
-          hash.error = true;
+          hash.error = false;
           res.json(hash);
         });
       }

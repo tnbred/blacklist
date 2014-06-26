@@ -36,7 +36,7 @@ module.exports = {
 		var context = this;
 		var points = context.currentUser_PointsLeft;
 		var res = ""
-		for (var i = 0; i <= points; i++) {
+		for (var i = 1; i <= points; i++) {
 			res += "<option 'value=\"" + i + "\">" + i + "</option>"
 		}
 		return res;
