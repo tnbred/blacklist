@@ -18,15 +18,13 @@ $(function() {
             data: {
                 "vote":vote,
                 "tr_id": tr_id,
-                "error": error
             },
             type: "POST",
             dataType: 'json',
             success: function (data, textStatus) {
-                alert( error );               
                 var error = data['error'];
-                if( error === true ) handleVoteResponse(data,'alert-danger');
-                if( error === false ) handleVoteResponse(data,'alert-success');
+                if( error ){ handleVoteResponse(data,'alert-danger') }
+                else{ handleVoteResponse(data,'alert-success') };
                 var tr_id = data['tr_id'];
                 var points_left = data['points_left'];
                 var new_vote = parseInt(data['points']);
@@ -35,7 +33,7 @@ $(function() {
                 $('#'+tr_id).find('.item_points').text(points+new_vote);
                 $('#'+tr_id).find('.item_variation').text(variation+new_vote);
                 var new_option_html = ""
-                for (var i=0;i<=points_left;i++)
+                for (var i=1;i<=points_left;i++)
                 {
                     new_option_html+='<option value='+i+'>'+i+'</option>'
                 }
