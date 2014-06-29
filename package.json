@@ -11,6 +11,7 @@
     "cookie-session": "^1.0.2",
     "date-format-lite": "latest",
     "datejs": "^1.0.0-beta",
+    "email-templates": "^1.0.0",
     "express": "latest",
     "express3-handlebars": "latest",
     "handlebars": "latest",
