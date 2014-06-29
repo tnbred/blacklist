@@ -79,6 +79,31 @@ $(function() {
     });
 
 
+    $('.like-comment').click(function() {
+        var comment_id = $(this).attr('comment_id');
+        var button_id = $(this).attr('button_id');
+        var likes = $(this).attr('likes');
+        
+        $.ajax({
+            url: "/comments/like",
+            data: {
+                "comment_id":comment_id,
+                "button_id":button_id,
+                "likes":likes
+            },
+            type: "POST",
+            dataType: 'json',
+            success: function (data, textStatus) {
+                var button_id = data['button_id'];
+                var likes = data['likes'];
+                
+                $('#button_id_'+button_id).find('.likes').text(likes);
+                $('#button_id_'+button_id).addClass('disabled');
+            }
+        });
+    });
+
+
 
 
 });

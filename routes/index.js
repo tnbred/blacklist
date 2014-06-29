@@ -63,4 +63,7 @@ module.exports = function(app) {
   app.route("/comments")
     .post(controllers.comment.create)
 
+  app.route("/comments/like")
+    .post(controllers.comment.like)
+
 }

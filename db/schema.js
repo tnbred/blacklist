@@ -218,6 +218,12 @@ pg.connect(connectionString, function(err, client, done) {
       console.log(result.rows);
     });
 
+    client.query('CREATE TABLE comments_likes (id SERIAL,user_id integer,comment_id integer,created_at timestamp, updated_at timestamp)', function(err, result) {
+      done();
+      if (err) return console.error(err);
+      console.log(result.rows);
+    });
+
   }
 
 

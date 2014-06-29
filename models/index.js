@@ -164,6 +164,20 @@ var List = Bookshelf.Model.extend({
 
 });
 
+
+var CommentLike = Bookshelf.Model.extend({
+
+	tableName: 'comments_likes',
+	hasTimestamps: true,
+	user: function() {
+		return this.belongsTo(User);
+	},
+	comment: function() {
+		return this.belongsTo(Comment);
+	}
+
+});
+
 var ListUser = Bookshelf.Model.extend({
 
 	tableName: 'list_user',
@@ -224,6 +238,9 @@ var Comment = Bookshelf.Model.extend({
 	},
 	user: function() {
 		return this.belongsTo(User);
+	},
+	likes: function() {
+		return this.hasMany(CommentLike);
 	}
 
 });
@@ -233,5 +250,6 @@ module.exports = {
 	List: List,
 	Vote: Vote,
 	Comment: Comment,
+	CommentLike: CommentLike,
 	ListUser: ListUser
 }
