@@ -29,6 +29,10 @@ module.exports = function(app) {
       failureFlash: true
     }))
 
+  app.route("/reset")
+    .get(controllers.sendPassword)
+    .post(controllers.sendPassword)
+
   app.route("/reset/:token")
     .get(controllers.resetPassword)
     .post(controllers.resetPassword)
