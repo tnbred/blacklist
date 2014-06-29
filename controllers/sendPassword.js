@@ -13,7 +13,7 @@ module.exports = function(req, res) {
         to: email,
         generateTextFromHTML: true,
         subject: "Your password",
-        html: "get it <a href=\""+hostname+"/reset/"+salt+"\">here</a>"
+        html: "get it <a href=\"http://"+hostname+"/reset/"+salt+"\">here</a>"
       }
       config.Mailer.Transport.sendMail(mailOptions);
       res.redirect("/");
