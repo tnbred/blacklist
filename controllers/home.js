@@ -7,7 +7,7 @@ var validation = require( __dirname + '/validations/registrationValidation')
 module.exports = function(req, res) {
   var usererror = validation.checkPostedParameters( req , function( user , error ){
     if( error ){
-      validation.redirectRegistration( res , req , error );
+      validation.redirectRegistration( res , req , user , error );
     }
     else{
       if( user ){
