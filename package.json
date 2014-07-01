@@ -20,7 +20,9 @@
     "passport": "^0.2.0",
     "passport-local": "^1.0.0",
     "pg": "^3.2.0",
-    "promise": "^5.0.0"
+    "promise": "^5.0.0",
+    "mellt": "latest",
+    "connect-flash": "latest"
   },
   "devDependencies": {
     "nodeunit": "latest"

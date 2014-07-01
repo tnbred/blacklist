@@ -16,7 +16,7 @@ module.exports = function(app) {
 
   app.route("/")
     .get(controllers.home)
-    .post(controllers.home)
+    .post(controllers.home);
 
   app.route("/healthcheck")
     .get(controllers.healthcheck)
@@ -27,7 +27,8 @@ module.exports = function(app) {
       successRedirect: '/',
       failureRedirect: '/login',
       failureFlash: true
-    }))
+    }));
+
 
   app.route("/reset")
     .get(controllers.sendPassword)
