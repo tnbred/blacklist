@@ -1,4 +1,4 @@
-var models = require(__dirname + "/../../models");
+var models = require(__dirname + "/../models");
 
 checkPostedInfo = function( current_user , user ){
 	if (user.current_password === null) throw "No password provided";
@@ -8,7 +8,7 @@ checkPostedInfo = function( current_user , user ){
 	}
 }
 
-updatePostedInfo = function( current_user , user  , req , res ){
+updatePostedInfo = function( current_user , user ){
 	var messageNickname = messageEmail = messagePassword = {};
 	if (user.nickname){
 		if( current_user.get('nickname')!=user.nickname){

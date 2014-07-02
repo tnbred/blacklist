@@ -1,5 +1,5 @@
 var models = require(__dirname + "/../../models");
-var validation = require(__dirname + '/../validations/updateProfileValidation')
+var validation = require(__dirname + '/../../validations/updateProfileValidation')
 
 module.exports = function(req, res) {
 
@@ -8,13 +8,11 @@ module.exports = function(req, res) {
   var new_user = new User({
     id: req.metaData.current_user.id
   })
-console.log( req.session.toJSON());
   new_user.fetch().then(function(current_user) {
-      console.log(new_user.toJSON());
 
     try {
       validation.checkPostedInfo( current_user , user ); //check validity of posted info
-      message = validation.updatePostedInfo( current_user , user , req , res ); //create action message
+      message = validation.updatePostedInfo( current_user , user ); //create action message
       if( user.password ){
         current_user.saltPassword(function(error) {
           finish(current_user ,  message );

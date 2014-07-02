@@ -1,34 +1,36 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>The BlackList</title>
-    {{> assets/css}}
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  </head>
-  <body>
-    
-    <div class="row">
-      {{> shared/header}}  
+<head>
+  <title>The BlackList</title>
+  {{> assets/css}}
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+  
+  <div class="row">
+    {{> shared/header}}  
+  </div>
+
+
+  <div class="row full-screen">
+    {{#each message}}
+    {{#if this.display }}
+    <div class="row col-md-4 col-md-offset-4">
+      <div class="alert {{this.alertType}} alert-dismissable">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+        <strong>{{this.strongMessage}}</strong> {{this.messageText}}
+      </div>
     </div>
+    {{/if}}
+    {{/each}}
 
+    {{{body}}}
+  </div>
 
-    <div class="row full-screen">
-      {{#each message}}
-        {{#if this.display }}
-          <div class="alert {{this.alertType}} alert-dismissable">
-          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-          <strong>{{this.strongMessage}}</strong> {{this.messageText}}
-          </div>
-        {{/if}}
-      {{/each}}
+  <div class="row">
+    {{> shared/footer}}  
+  </div>
 
-      {{{body}}}
-    </div>
-
-    <div class="row">
-      {{> shared/footer}}  
-    </div>
-
-    {{> assets/js}}
-  </body>
+  {{> assets/js}}
+</body>
 </html>

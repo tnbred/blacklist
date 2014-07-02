@@ -1,14 +1,9 @@
 var models = require(__dirname + "/../models");
+var validation = require(__dirname + '/../validations')
 
 module.exports = function(req, res) {
-	message = [{
-		alertType: "alert-danger",
-		strongMessage: "Error!",
-		messageText: req.flash( 'error' )[0],
-		display: true
-	}];
-	if( !message[0].messageText ){ message = null;}
-	console.log( message );
+	var loginValidation = validation.loginValidation
+	message = loginValidation.checkLoginInfo(req.flash('error')[0])
 	res.render(
 		"static/login", {
 			metaData: req.metaData,
@@ -16,4 +11,3 @@ module.exports = function(req, res) {
 		}
 	)
 }
-
