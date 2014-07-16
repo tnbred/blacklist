@@ -44,6 +44,13 @@ pg.connect(connectionString, function(err, client, done) {
 
     });
 
+    client.query('DROP TABLE comments_likes', function(err, result) {
+      done();
+      if (err) return console.error(err);
+      console.log(result.rows);
+
+    });
+
   } else if (process.argv[2] == "seed") {
     var List = models.List
     var User = models.User
@@ -56,7 +63,7 @@ pg.connect(connectionString, function(err, client, done) {
 
     function createUser(name, email) {
 
-      if (!email) email = "tnbredillet@gmail.com"
+      if (!email) email = "tnb234@nyu.edu"
 
       var user = new User({
         email: email.toLowerCase(),
@@ -90,6 +97,7 @@ pg.connect(connectionString, function(err, client, done) {
     createUser("Alexandre Bessis", "alexandre.bessis@gmail.com")
     createUser("HanCha Hvl", "hancharlottehvl@hotmail.com")
     createUser("Ari Desvaux", "aristide.desvaux@gmail.com")
+    createUser("Justine Cayol", "cayol.justine@gmail.com")
     createUser("Francois Hollande")
     createUser("Manuel Valls")
     createUser("Francois Cope")
@@ -111,7 +119,7 @@ pg.connect(connectionString, function(err, client, done) {
     createUser("Les Gros")
 
 
-    numberOfCreatedUser=23
+    numberOfCreatedUser=24
 
     for (var i = 1; i <= numberOfCreatedUser; i++) {
       new Vote({
@@ -208,7 +216,7 @@ pg.connect(connectionString, function(err, client, done) {
       console.log(result.rows);
     });
 
-    client.query('CREATE TABLE users (id SERIAL,email varchar(40),password varchar(40), name varchar(100),nickName varchar(40),approved boolean,salt varchar(40),lastlogin_at timestamp,loginCount integer,created_at timestamp, updated_at timestamp)', function(err, result) {
+    client.query('CREATE TABLE users (id SERIAL,email varchar(40),password varchar(40), name varchar(100),nickname varchar(40),approved boolean,salt varchar(40),lastlogin_at timestamp,logincount integer,created_at timestamp, updated_at timestamp)', function(err, result) {
       done();
       if (err) return console.error(err);
       console.log(result.rows);
