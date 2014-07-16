@@ -54,16 +54,15 @@ pg.connect(connectionString, function(err, client, done) {
       return Math.floor(Math.random() * (max - min + 1)) + min;
     }
 
-    function createUser(firstName, lastName, email) {
+    function createUser(name, email) {
 
-      if (!email) email = firstName + "." + lastName + "@gmail.com"
+      if (!email) email = "tnbredillet@gmail.com"
 
       var user = new User({
         email: email.toLowerCase(),
         approved: true,
-        password: firstName.toLowerCase(),
-        firstname: firstName,
-        lastname: lastName
+        password: name.toLowerCase(),
+        name: name
       })
 
       user.saltPassword(function(error) {
@@ -81,35 +80,38 @@ pg.connect(connectionString, function(err, client, done) {
     }
 
     var list = new List({
-      name: "Top Assholes 2014",
+      name: "Beta Testers 2014",
     });
     list.save()
     console.log("Created list " + list.toJSON().name)
 
-    createUser("Thomas", "Bredillet", "tnbredillet@gmail.com")
-    createUser("Antoine", "Dematteo")
-    createUser("Francois", "Hollande")
-    createUser("Manuel", "Valls")
-    createUser("Francois", "Cope")
-    createUser("Nicolas", "Sarkozy")
-    createUser("Barrack", "Obama")
-    createUser("Angela", "Merkel")
-    createUser("Alexandre", "Bessis")
-    createUser("Miley", "Cyrus")
-    createUser("Justin", "Bieber")
-    createUser("Amelie", "Nothomb")
-    createUser("Les", "Chinois")
-    createUser("Le", "Fisc")
-    createUser("Vladimir", "Putin")
-    createUser("David", "Cameron")
-    createUser("Anne", "Hidalgo")
-    createUser("Les", "Feministes")
-    createUser("Jonathan 'Mozart'", "Hadida")
-    createUser("Sncf", "Ratp")
-    createUser("Les", "Flics")
-    createUser("Les", "Gros")
+    createUser("Thomas Bredillet", "tnbredillet@gmail.com")
+    createUser("Antoine Dematteo", "antoinedematteo@gmail.com")
+    createUser("Alexandre Bessis", "alexandre.bessis@gmail.com")
+    createUser("HanCha Hvl", "hancharlottehvl@hotmail.com")
+    createUser("Ari Desvaux", "aristide.desvaux@gmail.com")
+    createUser("Francois Hollande")
+    createUser("Manuel Valls")
+    createUser("Francois Cope")
+    createUser("Nicolas Sarkozy")
+    createUser("Barrack Obama")
+    createUser("Angela Merkel")
+    createUser("Miley Cyrus")
+    createUser("Justin Bieber")
+    createUser("Amelie Nothomb")
+    createUser("Les Chinois")
+    createUser("Le Fisc")
+    createUser("Vladimir Putin")
+    createUser("David Cameron")
+    createUser("Anne Hidalgo")
+    createUser("Les Feministes")
+    createUser("Jonathan 'Mozart' Hadida")
+    createUser("Sncf Ratp")
+    createUser("Les Flics")
+    createUser("Les Gros")
 
-    numberOfCreatedUser=21
+
+    numberOfCreatedUser=23
 
     for (var i = 1; i <= numberOfCreatedUser; i++) {
       new Vote({
@@ -206,7 +208,7 @@ pg.connect(connectionString, function(err, client, done) {
       console.log(result.rows);
     });
 
-    client.query('CREATE TABLE users (id SERIAL,email varchar(40),password varchar(40), firstName varchar(40),lastName varchar(40),nickName varchar(40),approved boolean,salt varchar(40),lastLoginAt timestamp,loginCount integer,created_at timestamp, updated_at timestamp)', function(err, result) {
+    client.query('CREATE TABLE users (id SERIAL,email varchar(40),password varchar(40), name varchar(100),nickName varchar(40),approved boolean,salt varchar(40),lastlogin_at timestamp,loginCount integer,created_at timestamp, updated_at timestamp)', function(err, result) {
       done();
       if (err) return console.error(err);
       console.log(result.rows);

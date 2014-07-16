@@ -8,8 +8,7 @@
   <thead>
   <tr>
     <th>Rank</th>
-    <th>Firstname</th>
-    <th>Lastname</th>
+    <th>Name</th>
     <th>Points</th>
     <th></th>
   </tr>
@@ -18,8 +17,7 @@
       {{#each results.users}}
       <tr id="list_item_{{@index}}" points={{userPoints}}  user_to_id={{user.id}}>
         <td class="item_rank">{{userRank}}</td>
-        <td class="item_firstname">{{user.firstname}}</td>
-        <td class="item_lastname">{{user.lastname}}</td>
+        <td class="item_name">{{user.name}}</td>
         <td class="item_points">{{userPoints}}</td>
         <td>
           <div class="hidden add_point_div">

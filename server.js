@@ -21,7 +21,6 @@ var passport = require('passport');
 
 var app = express();
 
-// Mustache engine
 app.engine("handlebars", exHb({
   defaultLayout : "main",
   helpers       : require(__dirname + "/presenters/index.js")
@@ -29,11 +28,10 @@ app.engine("handlebars", exHb({
 }));
 app.set("view engine", "handlebars");
 
-
-// Sessions (@TODO: update keys)
 app.use(cookieParser(config.Cookie.Secret));
 app.use(session({ secret: config.Session.Secret, cookie: { maxAge: 30 * 24 * 60 * 60 * 1000 }}));
-app.use(bodyParser());
+app.use(bodyParser.json());    
+app.use(bodyParser.urlencoded({ extended: false })) 
 app.use(express.static(path.join(__dirname, 'views/public')));
 app.use(flash());
 app.use(passport.initialize());
