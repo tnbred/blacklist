@@ -2,7 +2,7 @@ var models = require(__dirname + "/../models");
 var passport = require('passport')
 var LocalStrategy = require('passport-local').Strategy;
 var flash = require('connect-flash');
-
+var User = new models.User;
 
 var strategy =  new LocalStrategy({
     usernameField: 'email',
@@ -19,7 +19,12 @@ var strategy =  new LocalStrategy({
       if (user.get("approved") !== true){
         return done(null, false, { message: 'User not yet approved.' });
       } 
-      return done(null, user);
+      var logCount = user.get( "logincount" ) + 1;
+      if( logCount == null ){
+        logCount = 0;
+      } 
+      user.attributes.logincount = logCount; 
+      return done(null, user )
     })
   }
 )

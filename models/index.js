@@ -143,6 +143,11 @@ var User = Bookshelf.Model.extend({
 		}
 
 		return (found) ? result : total;
+	},
+
+	updateTimeStamp: function(){
+		this.lastlogin_at = Date.now();
+		this.save();
 	}
 });
 

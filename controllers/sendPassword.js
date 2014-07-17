@@ -32,10 +32,25 @@ module.exports = function(req, res) {
           })
         })
       })
-      res.redirect("/");
+      message = [{
+        alertType: 'alert-success',
+        strongMessage: 'Email valid!',
+        messageText: 'We just sent you an email to reset your password',
+        display: true
+      }]
+      res.render("static/login" , {
+              metaData: req.metaData,
+              message : message  
+      });
 
     })
   } else {
+      message = [{
+        alertType: 'alert-danger',
+        strongMessage: 'Email invalid!',
+        messageText: '',
+        display: true
+      }]
     res.render(
       "static/sendPassword", {
         metaData: req.metaData
