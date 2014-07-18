@@ -44,10 +44,27 @@ module.exports = function(req, res) {
     if (req.metaData.current_user) {
       res.redirect("/user/home");
     } else {
-      res.render(
-        "static/home", {
-          metaData: req.metaData
-        });
+      if( req.session.signout ){
+        req.session.signout = false;
+        messageSignOut = [{
+          alertType: 'alert-success',
+          strongMessage: 'Sign out successfull!',
+          messageText: '',
+          display: true,
+        }]
+
+        res.render(
+          "static/home", {
+            metaData: req.metaData,
+            message: messageSignOut
+          });
+      }
+      else{
+        res.render(
+          "static/home", {
+            metaData: req.metaData,
+          });
+      }
     }
   }
 
