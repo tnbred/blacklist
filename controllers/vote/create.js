@@ -28,24 +28,27 @@ module.exports = function(req, res) {
       });
       try {
         if (vote.toJSON().points > 0) {
-          new User({id:voteData.user_to_id}).fetch().then(function(votedUser) {
-            new List({id:voteData.list_id}).fetch().then(function(list) {
+          new User({
+            id: voteData.user_to_id
+          }).fetch().then(function(votedUser) {
+            new List({
+              id: voteData.list_id
+            }).fetch().then(function(list) {
               emailTemplates(templatesDir, function(err, template) {
-              var locals = {
-                listName:list.toJSON().name,
-                points:voteData.points,
-                name:votedUser.toJSON().name
-              }
-
-              template('voteNotification', locals, function(err, html, text) {
-                config.Mailer.Transport.sendMail({
-                  from: 'The BlacklistApp <theblacklistap@gmail.com>',
-                  to: votedUser.toJSON().email,
-                  subject: 'The BlacklistApp - You got up voted !',
-                  html: html
+                var locals = {
+                  listName: list.toJSON().name,
+                  points: voteData.points,
+                  name: votedUser.toJSON().name
+                }
+                template('voteNotification', locals, function(err, html, text) {
+                  config.Mailer.Transport.sendMail({
+                    from: 'The BlackListApp <no-reply@theblacklistapp.com>',
+                    to: votedUser.toJSON().email,
+                    subject: 'The BlacklistApp - You got up voted !',
+                    html: html
+                  })
                 })
               })
-            })
             })
           })
           vote.save().then(function(vote) {

@@ -25,7 +25,7 @@ module.exports = function(req, res) {
 
         template('resetPassword', locals, function(err, html, text) {
           config.Mailer.Transport.sendMail({
-            from: 'The BlacklistApp <theblacklistap@gmail.com>',
+            from: 'The BlackListApp <no-reply@theblacklistapp.com>',
             to: locals.email,
             subject: 'The BlacklistApp - Reset your password',
             html: html
