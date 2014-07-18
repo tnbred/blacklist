@@ -1,5 +1,13 @@
 var models = require(__dirname + "/../../models");
 module.exports = function(req, res) {
+  if( req.flash( 'success' ) ){
+    messageLoginSuccess = [{
+      alertType: "alert-success",
+      strongMessage: 'You succesfully logged in!',
+      messageText: '',
+      display: true
+    }];
+  }
   var current_user = req.metaData.current_user
   var User = models.User;
   var user = new User({
@@ -12,10 +20,12 @@ module.exports = function(req, res) {
     current_user.save( { lastlogin_at : update_time , logincount: logCount });
   });
   user.lists().fetch().then(function(lists){
+
     res.render("user/home", {
-        metaData: req.metaData,
-        lists: lists.toJSON()
-      });
+      metaData: req.metaData,
+      lists: lists.toJSON(),
+      message: messageLoginSuccess
+    });
   });
 
 
