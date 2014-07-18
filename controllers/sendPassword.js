@@ -17,7 +17,7 @@ module.exports = function(req, res) {
           strongMessage: "Email invalid!",
           messageText: "We did not find you in our database...",
           display: true
-        }]
+        }];
         res.render(
           "static/sendPassword", {
             metaData: req.metaData,
@@ -46,30 +46,29 @@ module.exports = function(req, res) {
             })
           })
         })
+
         message = [{
           alertType: 'alert-success',
           strongMessage: 'Email valid!',
           messageText: 'We just sent you an email to reset your password',
           display: true
-        }]
+        }];
         res.render("static/login" , {
           metaData: req.metaData,
           message : message  
         });
-
-      })
-} else {
-  message = [{
-    alertType: 'alert-danger',
-    strongMessage: 'Email invalid!',
-    messageText: '',
-    display: true
-  }]
-  res.render(
-    "static/sendPassword", {
-      metaData: req.metaData
-    }
-    );
-}
-}
+      }
+    })
+  } else {
+    message = [{
+      alertType: 'alert-danger',
+      strongMessage: 'Email invalid!',
+      messageText: '',
+      display: true
+    }];
+    res.render(
+      "static/sendPassword", {
+        metaData: req.metaData
+      });
+  }
 };

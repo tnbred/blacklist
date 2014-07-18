@@ -9,7 +9,7 @@ module.exports = function(req, res) {
     var resetPasswordValidation = validation.resetPasswordValidation;
     if (saltToken) {
       if (sentUser) {
-        console.log("border de merde");
+
         try{
           resetPasswordValidation.checkPostedParameters( sentUser );
           new models.User().query('where', 'salt', '=', saltToken).fetch().then(function(user) {
@@ -18,19 +18,21 @@ module.exports = function(req, res) {
             user.saltPassword(function(error) {
               user.save().then(function(user) {
                 if (error) {
-                  res.redirect("/?error=" + error.message);
+                  res.redirect("/?error=" + error);
                 } else {
                   req.login(user, function(err) {
                     if (err) {
                       return next(err);
                     }
 
-                    message= [{
+                    message = [{
                       alertType: "alert-success",
                       strongMessage: "Your password was successfully updated!",
                       messageText: "",
                       display: true
                     }]
+                    req.metaData.tokenn = saltToken;
+
                     res.render(
                       "user/home", {
                         metaData: req.metaData,
@@ -44,21 +46,18 @@ module.exports = function(req, res) {
           })  
         }
         catch (error) {
-          //res.redirect("/reset/" + saltToken + "?error=" + error);
-
           message= [{
             alertType: "alert-danger",
             strongMessage: "Error!",
             messageText: error,
             display: true
           }]
-          /*res.render(
-            "/reset/"+saltToken, {
+          res.render(
+            "static/password", {
               metaData: req.metaData,
               message: message,
-              token: saltToken
-            });*/
-          res.redirect("/reset/" + saltToken + "?error=" + error);
+              salt: saltToken
+            });
 
         }  
       }
@@ -72,8 +71,20 @@ module.exports = function(req, res) {
                 salt: saltToken
               }
             );
+
           } catch (error) {
-            res.redirect("/?error=" + error);
+            req.metaData.tokenn = saltToken;
+            message= [{
+            alertType: "alert-danger",
+            strongMessage: "Error!",
+            messageText: error,
+            display: true
+          }]
+          res.render(
+            "static/password", {
+              metaData: req.metaData,
+              message: message,
+            });
           }
         });
       }

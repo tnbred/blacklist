@@ -1,4 +1,5 @@
 var models = require(__dirname + "/../models");
+var mellt = require('mellt');
 
 checkPostedInfo = function( current_user , user ){
 	if (user.current_password === null) throw "No password provided";
@@ -6,6 +7,9 @@ checkPostedInfo = function( current_user , user ){
 	if (user.password) {
 		if (user.password !== user.password_confirmation) throw "password confirmation doesn't match password";
 	}
+	if (mellt.CheckPassword( user.password ) == 0) {
+					throw "your password is too simple  \n try longer combinations or use special characters such as !&,.ç? digits or even sentences like \' theblacklistapp is the best site ever!!!\'";
+	} 
 }
 
 updatePostedInfo = function( current_user , user ){
@@ -37,7 +41,7 @@ updatePostedInfo = function( current_user , user ){
 		current_user.set("password", user.password);
 		messagePassword = {
 			alertType: "alert-success",
-			strongMessage: "Password updated",
+			strongMessage: "Password updated!",
 			messageText: '',
 			display: true
 		};
