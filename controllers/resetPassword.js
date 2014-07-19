@@ -1,39 +1,67 @@
 var models = require(__dirname + "/../models");
+var validation = require(__dirname + '/../validations')
 
 module.exports = function(req, res) {
   try {
     // Try login
     var saltToken = req.param("token", null);
     var sentUser = req.param("user", null);
-
+    var resetPasswordValidation = validation.resetPasswordValidation;
     if (saltToken) {
       if (sentUser) {
-        try {
-          var newPassword = sentUser["password"];
-          var newPasswordConfirmation = sentUser["password_confirmation"]
-          if (!(newPassword && newPasswordConfirmation)) throw "You have to fill all the required inputs";
-          if (newPassword !== newPasswordConfirmation) throw "Password doesn't match password confirmation";
+
+        try{
+          resetPasswordValidation.checkPostedParameters( sentUser );
           new models.User().query('where', 'salt', '=', saltToken).fetch().then(function(user) {
-            user.set("password", newPassword)
+            var newPassword = sentUser["password"];
+            user.set("password", newPassword);
             user.saltPassword(function(error) {
               user.save().then(function(user) {
                 if (error) {
-                  res.redirect("/?error=" + error.message);
+                  res.redirect("/?error=" + error);
                 } else {
                   req.login(user, function(err) {
                     if (err) {
                       return next(err);
                     }
-                    res.redirect("/");
+
+                    message = [{
+                      alertType: "alert-success",
+                      strongMessage: "Your password was successfully updated!",
+                      messageText: "",
+                      display: true
+                    }]
+                    req.metaData.tokenn = saltToken;
+
+                    res.render(
+                      "user/home", {
+                        metaData: req.metaData,
+                        message: message
+                      });
+
                   });
                 }
               })
             })
-          })
-        } catch (error) {
-          res.redirect("/reset/" + saltToken + "?error=" + error);
+          })  
         }
-      } else {
+        catch (error) {
+          message= [{
+            alertType: "alert-danger",
+            strongMessage: "Error!",
+            messageText: error,
+            display: true
+          }]
+          res.render(
+            "static/password", {
+              metaData: req.metaData,
+              message: message,
+              salt: saltToken
+            });
+
+        }  
+      }
+      else {
         new models.User().query('where', 'salt', '=', saltToken).fetch().then(function(user) {
           try {
             if (user === null) throw "user-doesnt-exists";
@@ -43,8 +71,20 @@ module.exports = function(req, res) {
                 salt: saltToken
               }
             );
+
           } catch (error) {
-            res.redirect("/?error=" + error);
+            req.metaData.tokenn = saltToken;
+            message= [{
+            alertType: "alert-danger",
+            strongMessage: "Error!",
+            messageText: error,
+            display: true
+          }]
+          res.render(
+            "static/password", {
+              metaData: req.metaData,
+              message: message,
+            });
           }
         });
       }

@@ -4,5 +4,4 @@ module.exports = {
 	registrationValidation: require(__dirname + "/registrationValidation"),
 	updateProfileValidation: require(__dirname + "/updateProfileValidation"),
 	resetPasswordValidation: require(__dirname + "/resetPasswordValidation")
-
 };
