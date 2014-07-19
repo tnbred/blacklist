@@ -29,7 +29,7 @@ app.engine("handlebars", exHb({
 app.set("view engine", "handlebars");
 
 app.use(cookieParser(config.Cookie.Secret));
-app.use(session({ secret: config.Session.Secret, cookie: { maxAge: 30 * 24 * 60 * 60 * 1000 }}));
+app.use(session({ secret: config.Session.Secret, cookie: { maxAge: null }}));
 app.use(bodyParser.json());    
 app.use(bodyParser.urlencoded({ extended: true })) 
 app.use(express.static(path.join(__dirname, 'views/public')));
