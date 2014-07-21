@@ -40,5 +40,6 @@ module.exports = {
 			res += "<option 'value=\"" + i + "\">" + i + "</option>"
 		}
 		return res;
-	}
+	},
+
 }

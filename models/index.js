@@ -14,6 +14,11 @@ var User = Bookshelf.Model.extend({
 	comments: function() {
 		return this.hasMany(Comment);
 	},
+
+	replies: function(){
+		return this.hasMany( ReplyComment);
+	},
+
 	generateSalt: function(callback) {
 		var Crypto = require("crypto")
 		var hash = Crypto.createHash("sha1")
@@ -178,7 +183,7 @@ var CommentLike = Bookshelf.Model.extend({
 		return this.belongsTo(User);
 	},
 	comment: function() {
-		return this.belongsTo(Comment);
+		return this.belongsTo( Comment);
 	}
 
 });
@@ -197,6 +202,7 @@ var ListUser = Bookshelf.Model.extend({
 	}
 
 });
+
 
 var Vote = Bookshelf.Model.extend({
 
@@ -246,9 +252,26 @@ var Comment = Bookshelf.Model.extend({
 	},
 	likes: function() {
 		return this.hasMany(CommentLike);
+	},
+	replies: function(){
+		return this.hasMany( ReplyComment );
 	}
 
 });
+
+var ReplyComment = Bookshelf.Model.extend({
+
+	tableName: 'replyComments',
+	hasTimestamps: true,
+
+	comment: function() {
+		return this.belongsTo( Comment );
+	},
+	user: function() {
+		return this.belongsTo( User );
+	}
+	
+})
 
 module.exports = {
 	User: User,
@@ -256,5 +279,6 @@ module.exports = {
 	Vote: Vote,
 	Comment: Comment,
 	CommentLike: CommentLike,
-	ListUser: ListUser
+	ListUser: ListUser,
+	ReplyComment: ReplyComment
 }

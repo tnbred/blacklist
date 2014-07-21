@@ -39,7 +39,13 @@ span a:hover{
   margin-top: 10px;
   margin-bottom: 100px;
   color: #000;
+  height:200px;
 }
+
+.sendCcomment {
+  height:1000px;
+}
+
 
 
 .display_points_to_vote{
@@ -48,4 +54,35 @@ span a:hover{
 
 .display_vote{
   color:#000000;
+}
+
+
+.replyToComments{
+    position:absolute;
+    bottom:0;
+    right:0;
+    text-decoration:underline;
+}
+
+.replyToCommentText{
+  width:  460px;
+  height: 105px;
+}
+.modal-dialog{
+    /* new custom width */
+    width: 500px;
+    /* must be half of the width, minus scrollbar on the left (30px) */
+}
+
+.modal-body {
+    max-height: 150px;
+}
+
+
+.modal-footer{
+    max-height: 70px;
+    margin-top: 15px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+
 }
