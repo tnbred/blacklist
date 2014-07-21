@@ -261,7 +261,7 @@ var Comment = Bookshelf.Model.extend({
 
 var ReplyComment = Bookshelf.Model.extend({
 
-	tableName: 'replyComments',
+	tableName: 'replycomments',
 	hasTimestamps: true,
 
 	comment: function() {

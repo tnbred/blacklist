@@ -2,18 +2,19 @@ var models = require(__dirname + "/../../models");
 
 module.exports = function(req, res) {
   var replyCommentData = req.param("reply_comment", null);
-  var commentId = req.param;
+
+  var commentId = replyCommentData.commentId;
   var metaData = req.metaData;
   var ReplyComment = models.ReplyComment;
-  console.log( replyCommentData)
-  console.log( req )
   var replyComment = new ReplyComment({
-    replyComment: replyCommentData.text,
+    reply: replyCommentData.text,
     user_id: metaData.current_user.id,
-    comment_id: replyCommentData.commentId
+    comment_id: commentId
   });
-  //console.log(replyComment);
-  //replyComment.save()
-  res.redirect("/lists/1");
-
+  replyComment.save();
+  new models.Comment({
+    id: commentId,
+  }).fetch().then(function( comment ){ 
+    res.redirect("/lists/"+comment.get('list_id') ) } );
 };
+
