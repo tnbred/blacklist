@@ -51,6 +51,13 @@ pg.connect(connectionString, function(err, client, done) {
 
     });
 
+    client.query('DROP TABLE replycomments', function(err, result) {
+      done();
+      if (err) return console.error(err);
+      console.log(result.rows);
+
+    });
+
 
   } else if (process.argv[2] == "seed") {
     var List = models.List
@@ -235,8 +242,13 @@ pg.connect(connectionString, function(err, client, done) {
       console.log(result.rows);
     });
 
-  }
+    client.query('CREATE TABLE replycomments (id SERIAL,user_id integer,comment_id integer,reply text,created_at timestamp, updated_at timestamp)', function(err, result) {
+      done();
+      if (err) return console.error(err);
+      console.log(result.rows);
+    });
 
+  }
 
 
 });
