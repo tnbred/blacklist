@@ -58,7 +58,6 @@ pg.connect(connectionString, function(err, client, done) {
 
     });
 
-
   } else if (process.argv[2] == "seed") {
     var List = models.List
     var User = models.User
