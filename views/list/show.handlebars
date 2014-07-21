@@ -62,15 +62,16 @@
       </button>
      <small class="pull-right">By {{user.nickname}}, {{formatDate}} </small></p>
 
-
-
 <!-- Button trigger modal -->
-<a class="replyToComments btn" autofocus="autofocus" data-toggle="modal" data-target="#myModal">
+<a class="replyToComments btn" autofocus="autofocus" data-toggle="modal" data-target="#commentModal_{{@index}}">
   Reply!
 </a>
 
    
  </div>
+
+   {{> shared/modalReply }} 
+
  {{/each}}
 </div>
 </div>
