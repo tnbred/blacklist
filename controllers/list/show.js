@@ -11,7 +11,7 @@ module.exports = function(req, res) {
 	new List({
 		id: listId
 	}).fetch({
-		withRelated: ['comments', 'comments.user', 'comments.likes' , 'comments.replies' , 'comments.list']
+		withRelated: ['comments', 'comments.user', 'comments.likes' , 'comments.list' , 'comments.replies' , 'comments.replies.user' ]
 	}).then(function(list) {
 		commentsSorted = list.related("comments").toJSON().sort(function(a, b) {
 			return b.created_at.getTime() - a.created_at.getTime()
@@ -32,7 +32,6 @@ module.exports = function(req, res) {
 			else{
 				commentsSorted[i].textDisplayReply = 'Click to see the reply';
 			};
-
 
 		};
 		res.render("list/show", {

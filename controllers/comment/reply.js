@@ -1,10 +1,10 @@
 var models = require(__dirname + "/../../models");
 
 module.exports = function(req, res) {
-  var button_id = req.param("button_id", null)
-  if( button_id ){
+  var button_rep_id = req.param("button_rep_id", null)
+  if( button_rep_id ){
     var textDisplayReply  = req.param("textDisplayReply", null)
-    res.json({button_id: button_id , textDisplayReply: textDisplayReply}); 
+    res.json({button_rep_id: button_rep_id , textDisplayReply: textDisplayReply}); 
   }
   else{
     var replyCommentData = req.param("reply_comment", null);

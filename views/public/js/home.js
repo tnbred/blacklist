@@ -109,7 +109,7 @@ $('.like-comment').click(function() {
 
 
 $('.displayReplies').click(function() {
-    var button_id     = $(this).attr('button_id');
+    var button_rep_id     = $(this).attr('button_rep_id');
     var textDisplayReply        = $(this).attr('textDisplayReply');
     var replieslength = $(this).attr('replieslength');
     console.log( 'replieslength '+ replieslength);
@@ -121,16 +121,16 @@ $('.displayReplies').click(function() {
     $.ajax({
         url: "/comments/reply",
         data: {
-            "button_id":button_id,
+            "button_rep_id":button_rep_id,
             "textDisplayReply": textDisplayReply
         },
         type: "POST",
         dataType: 'json',
         success: function (data, textStatus) {
-            var button_id  = data['button_id'];
+            var button_rep_id  = data['button_rep_id'];
             var textDisplayReply     = data['textDisplayReply'];
-            $('#button_id_'+button_id).find('.textDisplayReply').text(textDisplayReply);
-            $('#button_id_'+button_id).attr('textDisplayReply',textDisplayReply);
+            $('#button_rep_id_'+button_rep_id).find('.textDisplayReply').text(textDisplayReply);
+            $('#button_rep_id_'+button_rep_id).attr('textDisplayReply',textDisplayReply);
 
         }
     });
