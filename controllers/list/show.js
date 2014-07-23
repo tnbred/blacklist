@@ -1,14 +1,17 @@
 var models = require(__dirname + "/../../models");
 
 module.exports = function(req, res) {
+
 	var List = models.List;
 	var listId = req.param('id', null);
 	var metaData = req.metaData;
 
+
+
 	new List({
 		id: listId
 	}).fetch({
-		withRelated: ['comments', 'comments.user', 'comments.likes']
+		withRelated: ['comments', 'comments.user', 'comments.likes' , 'comments.replies' , 'comments.list']
 	}).then(function(list) {
 		commentsSorted = list.related("comments").toJSON().sort(function(a, b) {
 			return b.created_at.getTime() - a.created_at.getTime()
@@ -20,13 +23,22 @@ module.exports = function(req, res) {
 					disabled="disabled";
 				}
 			};
-			commentsSorted[i].likes = commentsSorted[i].likes.length
+			commentsSorted[i].likes     = commentsSorted[i].likes.length
 			commentsSorted[i].disabled = disabled
+			commentsSorted[i].repliesLength = commentsSorted[i].replies.length
+			if( commentsSorted[i].replies.length>1 ){
+				commentsSorted[i].textDisplayReply = 'Click to see the '+commentsSorted[i].replies.length+' replies';
+			}
+			else{
+				commentsSorted[i].textDisplayReply = 'Click to see the reply';
+			};
+
+
 		};
 		res.render("list/show", {
 			metaData: req.metaData,
 			list: list.toJSON(),
-			comments: commentsSorted
+			comments: commentsSorted,
 		});
 	})
 };

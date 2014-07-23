@@ -71,24 +71,6 @@ function getData(el,layout){
     });
 }
 
-$('.replyComment').click( function(){
-    var commentId = $(this).parent().parent().attr('commentId');
-    $.ajax({
-                url: "/comments/reply",
-                data: {
-                    "commentId": commentId
-                },
-                type: "POST",
-                dataType: 'json',
-                success: function (  ) {
-                    console.log('success')
-                },
-                error: function(){
-                    console.log( 'error' );
-                }
-            })
-})
-
 $('.blacklistToLoad').each(function(idx,el){
     getData(el,null);
 });
@@ -121,6 +103,35 @@ $('.like-comment').click(function() {
 
             $('#button_id_'+button_id).find('.likes').text(likes);
             $('#button_id_'+button_id).addClass('disabled');
+        }
+    });
+});
+
+
+$('.displayReplies').click(function() {
+    var button_id     = $(this).attr('button_id');
+    var textDisplayReply        = $(this).attr('textDisplayReply');
+    var replieslength = $(this).attr('replieslength');
+    console.log( 'replieslength '+ replieslength);
+    if( textDisplayReply == 'unwatch replies' ){
+        if( replieslength > 1 ){ textDisplayReply  = 'Click to see the '+replieslength+' replies'; };
+        if( replieslength == 1 ){ textDisplayReply  = 'Click to see the reply'; };
+    }
+    else{ textDisplayReply = 'unwatch replies'; }
+    $.ajax({
+        url: "/comments/reply",
+        data: {
+            "button_id":button_id,
+            "textDisplayReply": textDisplayReply
+        },
+        type: "POST",
+        dataType: 'json',
+        success: function (data, textStatus) {
+            var button_id  = data['button_id'];
+            var textDisplayReply     = data['textDisplayReply'];
+            $('#button_id_'+button_id).find('.textDisplayReply').text(textDisplayReply);
+            $('#button_id_'+button_id).attr('textDisplayReply',textDisplayReply);
+
         }
     });
 });

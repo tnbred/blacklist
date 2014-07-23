@@ -64,10 +64,13 @@ span a:hover{
     text-decoration:underline;
 }
 
-.replyToCommentText{
-  width:  460px;
-  height: 105px;
+.displayReplies{
+    position:absolute;
+    bottom:0;
+    left:0;
+    text-decoration:underline;
 }
+
 .modal-dialog{
     /* new custom width */
     width: 500px;

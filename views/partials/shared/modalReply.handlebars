@@ -12,6 +12,7 @@
           <form accept-charset="UTF-8" action="/comments/reply" method="post" role="form">
             <input type="hidden" name="reply_comment[commentId]" value={{id}}>
             <input type="hidden" name="reply_comment[userId]" value={{user.id}}>
+            <input type="hidden" name="reply_comment[listId]" value={{list.id}}>
             <div class="form-group">
               <div class="main-page-form">
                <textarea autofocus="autofocus" class="form-control" name="reply_comment[text]" type="text" rows="4" placeholder="Reply here..." ></textarea>
