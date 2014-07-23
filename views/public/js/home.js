@@ -112,11 +112,11 @@ $('.displayReplies').click(function() {
     var button_rep_id     = $(this).attr('button_rep_id');
     var textDisplayReply        = $(this).attr('textDisplayReply');
     var replieslength = $(this).attr('replieslength');
-    if( textDisplayReply == 'unwatch replies' ){
+    if( textDisplayReply == 'hide replies' ){
         if( replieslength > 1 ){ textDisplayReply  = 'Click to see the '+replieslength+' replies'; };
         if( replieslength == 1 ){ textDisplayReply  = 'Click to see the reply'; };
     }
-    else{ textDisplayReply = 'unwatch replies'; }
+    else{ textDisplayReply = 'hide replies'; }
     $.ajax({
         url: "/comments/reply",
         data: {
