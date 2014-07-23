@@ -18,28 +18,37 @@ var Users = Bookshelf.Collection.extend({
 	model: User
 });
 
+
+var Render = function(locals) {
+	this.locals = locals;
+	this.send = function(err, html, text) {
+		console.log(this.locals)
+		/*config.Mailer.Transport.sendMail({
+						from: 'The BlackListApp <no-reply@theblacklistapp.com>',
+						to: locals.email,
+						subject: 'The BlacklistApp - Your have new points!',
+						html: html
+					})*/
+	};
+	this.batch = function(batch) {
+		batch(this.locals, this.send);
+	};
+};
+
+
 new Users().fetch().then(function(users) {
-	users = users.toJSON()
 	emailTemplates(templatesDir, function(err, template) {
-		for (var i = 0; i < users.length; i++) {
-			var user = users[i]
-			var locals = {
-				name: user.name
+		template('newPoints', true, function(err, batch) {
+			users = users.toJSON()
+			for (var i = 0; i < users.length; i++) {
+				var user = users[i]
+				var render = new Render({
+					name: user.name,
+					email: user.email
+				});
+				render.batch(batch);
 			}
-			template('newPoints', locals, function(err, html, text) {
-				config.Mailer.Transport.sendMail({
-					from: 'The BlackListApp <no-reply@theblacklistapp.com>',
-					to:  "tnbredillet@gmail.com",
-					subject: 'The BlacklistApp - Your have new points!',
-					html: html
-				})
-			})
-
-		}
-		setTimeout(function() {
-			process.exit(0)
-		}, 5000)
+		})
 	})
-
 
 })
