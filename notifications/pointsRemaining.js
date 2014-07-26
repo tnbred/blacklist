@@ -19,43 +19,65 @@ var Vote = models.Vote
 var Lists = Bookshelf.Collection.extend({
 	model: List
 });
-new Lists().fetch({
-	withRelated: ['users', 'votes']
-}).then(function(lists) {
-	lists = lists.models
-	emailTemplates(templatesDir, function(err, template) {
-		for (var i = 0; i < lists.length; i++) {
-			var list = lists[i]
-			var users = list.related("users").toJSON()
-			var votes = list.related("votes").toJSON()
-			list = list.toJSON()
-			for (var j = 0; j < users.length; j++) {
-				var user = users[j]
-				var pointsLeft = new User().getPointsLeft(user.id, votes)
-				if (pointsLeft > 0) {
-					var locals = {
-						points: pointsLeft,
-						list: list.name,
-						name: user.name
+
+
+
+emailTemplates(templatesDir, function(err, template) {
+	var Render = function(locals) {
+		this.locals = locals
+		var locals = locals
+		this.send = function(err, html, text) {
+			if (err) {
+				console.log(err);
+			} else {
+				console.log(l)
+				config.Mailer.Transport.sendMail({
+					from: 'The BlackListApp <no-reply@theblacklistapp.com>',
+					to: locals.email,
+					subject: 'The BlacklistApp - Your have leftover points!',
+					html: html,
+					// generateTextFromHTML: true,
+					text: text
+				}, function(err, responseStatus) {
+					if (err) {
+						console.log(err);
+					} else {
+						console.log(responseStatus.message);
 					}
+				});
+			}
+		};
+		this.batch = function(batch) {
+			batch(this.locals, templatesDir, this.send);
+		};
+	};
 
-					template('pointsRemaining', locals, function(err, html, text) {
-						config.Mailer.Transport.sendMail({
-							from: 'The BlackListApp <no-reply@theblacklistapp.com>',
-							to: user.email,
-							subject: 'The BlacklistApp - Your have leftover points!',
-							html: html
-						})
-					})
-
+	template('pointsRemaining', true, function(err, batch) {
+		new Lists().fetch({
+			withRelated: ['users', 'votes']
+		}).then(function(lists) {
+			lists = lists.models
+			for (var i = 0; i < lists.length; i++) {
+				var list = lists[i]
+				var users = list.related("users").toJSON()
+				var votes = list.related("votes").toJSON()
+				list = list.toJSON()
+				for (var j = 0; j < users.length; j++) {
+					var user = users[j]
+					var pointsLeft = new User().getPointsLeft(user.id, votes)
+					if (pointsLeft > 0) {
+						var emailLocals = {
+							points: pointsLeft,
+							list: list.name,
+							email: user.email,
+							name: user.name
+						}
+						var render = new Render(emailLocals);
+						render.batch(batch);
+					}
 				}
 			}
+		})
 
-		}
-		setTimeout(function() {
-			process.exit(0)
-		}, 5000)
-	})
-
-
+	});
 })
