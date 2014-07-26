@@ -7,6 +7,11 @@
 		<span class="sr-only">{{results.percentage}}% Complete</span>
 	</div>
 </div>
+{{#if results.votesThisWeek}}
+<p><b>Ouch.. this week you received {{results.votesThisWeek}} poinst.<b></p>
+{{else}}
+<p>You didn't get any points yet this week.</p>
+{{/if}}
 
 <ul>
 	{{#each results.latestVotes}}

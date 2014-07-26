@@ -29,6 +29,7 @@ module.exports = function(req, res) {
     results.currentUser_PointsLeft = user.getPointsLeft(current_user_id, votes)
     results.currentUser_Rank = user.findRank(current_user_id, rankArray, results.totalPeople)
     results.percentage = 100-(results.currentUser_Rank / results.totalPeople) * 100
+    results.votesThisWeek = user.votesThisWeek(current_user_id, votes)
 
     results.users = [];
     for (var i in users) {

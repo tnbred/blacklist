@@ -149,7 +149,15 @@ var User = Bookshelf.Model.extend({
 
 		return (found) ? result : total;
 	},
-
+	votesThisWeek: function(userId, votes) {
+		var result = 0;
+		for (var i in votes) {
+			if ((userId == votes[i].user_to_id) && (votes[i].created_at > Date.today().previous().sunday())) {
+				result += votes[i].points;
+			}
+		}
+		return result;
+	},
 	updateTimeStamp: function(){
 		this.lastlogin_at = Date.now();
 		this.save();
