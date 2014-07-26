@@ -18,7 +18,11 @@
       <tr id="list_item_{{@index}}" points={{userPoints}}  user_to_id={{user.id}}>
         <td class="item_rank">{{userRank}}</td>
         <td class="item_name">{{user.name}}</td>
-        <td class="item_points">{{userPoints}}</td>
+        {{#if votesThisWeek}}
+        <td class="item_points">{{userPoints}} points <small>(<span class="glyphicon glyphicon-arrow-up"></span>+{{votesThisWeek}} this week)</small></td>
+        {{else}}
+        <td class="item_points">{{userPoints}} points <small>(<span class="glyphicon glyphicon-arrow-right"></span>No change this week)</small></td>
+        {{/if}}
         <td>
           <div class="hidden add_point_div">
             <select class='display_points_to_vote'>

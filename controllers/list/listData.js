@@ -38,7 +38,8 @@ module.exports = function(req, res) {
       var user_id = userHash.user.id
       userHash.userPoints = user.findPointsOnListFromRankArray(user_id, rankArray)
       userHash.currentUser_PointsLeft = results.currentUser_PointsLeft
-      userHash.userRank = user.findRank(user_id, rankArray, results.totalPeople);
+      userHash.userRank = user.findRank(user_id, rankArray, results.totalPeople)
+      userHash.votesThisWeek = user.votesThisWeek(user_id, votes)
       results.users.push(userHash);
     }
 
