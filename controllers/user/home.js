@@ -1,12 +1,18 @@
 var models = require(__dirname + "/../../models");
 module.exports = function(req, res) {
-  if( req.flash( 'success' ) ){
+  //console.log(  'req.flash( \'success\' ) !==[]' +(req.flash( 'success' ) !==[])   );
+  //console.log(  'req.flash( \'success\' ) !=[]' +(req.flash( 'success' ) !=[])   );
+  //console.log(  '!(req.flash( \'success\' ) ==[])' +!((req.flash( 'success' ) ==[]))   );
+  if( req.flash( 'success' )[0] == 'success' ){
     messageLoginSuccess = [{
       alertType: "alert-success",
       strongMessage: 'You succesfully logged in!',
       messageText: '',
       display: true
     }];
+  }
+  else{
+    messageLoginSuccess = null;
   }
   var current_user = req.metaData.current_user
   var User = models.User;

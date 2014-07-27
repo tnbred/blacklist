@@ -27,7 +27,7 @@ module.exports = function(app) {
       successRedirect: '/',
       failureRedirect: '/login',
       failureFlash: true,
-      successFlash: true
+      successFlash: 'success'
     }));
 
 
