@@ -30,7 +30,6 @@ emailTemplates(templatesDir, function(err, template) {
 			if (err) {
 				console.log(err);
 			} else {
-				console.log(l)
 				config.Mailer.Transport.sendMail({
 					from: 'The BlackListApp <no-reply@theblacklistapp.com>',
 					to: locals.email,
