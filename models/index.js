@@ -1,5 +1,4 @@
 var Bookshelf = require('bookshelf').PG;
-var DateJS = require('datejs');
 
 var User = Bookshelf.Model.extend({
 
@@ -15,8 +14,8 @@ var User = Bookshelf.Model.extend({
 		return this.hasMany(Comment);
 	},
 
-	replies: function(){
-		return this.hasMany( ReplyComment);
+	replies: function() {
+		return this.hasMany(ReplyComment);
 	},
 
 	generateSalt: function(callback) {
@@ -126,10 +125,18 @@ var User = Bookshelf.Model.extend({
 		});
 		return tempArray;
 	},
+	getBeginningWeek: function(today) {
+		today = new Date(today);
+		today.setHours(0)
+		var day = today.getDay(),
+			diff = today.getDate() - day + (day == 0 ? -6 : 1); // adjust when day is sunday
+		return new Date(today.setDate(diff));
+	},
 	getPointsLeft: function(userId, votes) {
 		var result = 25;
+		var self = this
 		for (var i in votes) {
-			if ((userId == votes[i].user_id) && (votes[i].created_at > Date.today().previous().sunday())) {
+			if ((userId == votes[i].user_id) && (votes[i].created_at > self.getBeginningWeek(new Date()))) {
 				result -= votes[i].points;
 			}
 		}
@@ -151,14 +158,15 @@ var User = Bookshelf.Model.extend({
 	},
 	votesThisWeek: function(userId, votes) {
 		var result = 0;
+		var self = this
 		for (var i in votes) {
-			if ((userId == votes[i].user_to_id) && (votes[i].created_at > Date.today().previous().sunday())) {
+			if ((userId == votes[i].user_to_id) && (votes[i].created_at > self.getBeginningWeek(new Date()))) {
 				result += votes[i].points;
 			}
 		}
 		return result;
 	},
-	updateTimeStamp: function(){
+	updateTimeStamp: function() {
 		this.lastlogin_at = Date.now();
 		this.save();
 	}
@@ -191,7 +199,7 @@ var CommentLike = Bookshelf.Model.extend({
 		return this.belongsTo(User);
 	},
 	comment: function() {
-		return this.belongsTo( Comment);
+		return this.belongsTo(Comment);
 	}
 
 });
@@ -241,7 +249,7 @@ var Vote = Bookshelf.Model.extend({
 					temp.userTo = users[j]
 				}
 			}
-			latestVotes[i]=temp
+			latestVotes[i] = temp
 		}
 
 		return latestVotes
@@ -261,8 +269,8 @@ var Comment = Bookshelf.Model.extend({
 	likes: function() {
 		return this.hasMany(CommentLike);
 	},
-	replies: function(){
-		return this.hasMany( ReplyComment );
+	replies: function() {
+		return this.hasMany(ReplyComment);
 	}
 
 });
@@ -273,12 +281,12 @@ var ReplyComment = Bookshelf.Model.extend({
 	hasTimestamps: true,
 
 	comment: function() {
-		return this.belongsTo( Comment );
+		return this.belongsTo(Comment);
 	},
 	user: function() {
-		return this.belongsTo( User );
+		return this.belongsTo(User);
 	}
-	
+
 })
 
 module.exports = {
