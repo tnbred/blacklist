@@ -13,17 +13,17 @@ module.exports = {
 		this.votes = [{
 			user_to_id: 1,
 			user_id: 2,
-			created_at: Date.today(),
+			created_at: new Date(),
 			points: 5
 		}, {
 			user_to_id: 2,
 			user_id: 1,
-			created_at: Date.today(),
+			created_at: new Date(),
 			points: 10
 		}, {
 			user_to_id: 3,
 			user_id: 1,
-			created_at: Date.today(),
+			created_at: new Date(),
 			points: 20
 		}]
 		this.rankArray = [{

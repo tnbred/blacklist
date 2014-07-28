@@ -9,7 +9,7 @@ var Vote = models.Vote
 
 module.exports = {
 	setUp: function(callback) {
-		var today = Date.today()
+		var today = new Date()
 		this.today = today
 		this.votes = [{
 			user_to_id: 1,
