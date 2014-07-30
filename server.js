@@ -26,6 +26,7 @@ app.engine("handlebars", exHb({
   helpers       : require(__dirname + "/presenters/index.js")
   
 }));
+
 app.set("view engine", "handlebars");
 
 app.use(cookieParser(config.Cookie.Secret));

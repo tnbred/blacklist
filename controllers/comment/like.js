@@ -16,5 +16,5 @@ module.exports = function(req, res) {
     
     likes=likes+1
     
-    res.json({button_id: button_id, likes:'likes'});
+    res.json({button_id: button_id, likes:likes});
     };

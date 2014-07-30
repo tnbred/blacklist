@@ -56,6 +56,7 @@ module.exports = function(app) {
 
   app.route("/lists/:id")
     .get(controllers.list.show)
+    .post(controllers.list.show)
 
   //Votes routes
   app.route("/votes")

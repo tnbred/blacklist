@@ -21,47 +21,46 @@
 
      <div class="form-group">
       <div class="col-lg-10">
-        <input class="btn btn-success" name="commit" type="submit" value="Comment" />
+        <input class="btn btn-sm btn-success btn-block" name="commit" type="submit" value="Comment" />
       </div>
     </div>
   </form>
 </div>
 
 <div class="row col-lg-10 comments">
-
+ <div class="nbComment" id={{nbCom}}></div>
 
   {{#each comments}}
-
-  <div class="col-md-12 well">
+  <div class="col-md-12 well comment{{@index}}" id={{last}}>
    <p>
-     {{comment}}
-     <br>
-     <button type="button" class="btn btn-default btn-sm pull-left like-comment {{disabled}}" comment_id={{id}} button_id={{@index}} id="button_id_{{@index}}" likes={{likes}}>
+    {{comment}}
+    <br>
+    <button type="button" class="btn btn-default btn-sm pull-left like-comment {{disabled}}" comment_id={{id}} button_id={{@index}} id="button_id_{{@index}}" likes={{likes}}>
       <span class="likes">{{likes}}</span> <span class="glyphicon glyphicon-heart"></span> 
     </button>
-    <small class="pull-right">By {{user.nickname}}, {{formatDate}} </small></p>
+    <small class="pull-right">By {{user.nickname}}, {{formatDate}} </small>
+  </p>
 
-    <div class="display-comment-bottom">
-      <a class="btn replyToComments" autofocus="autofocus" data-toggle="modal" data-target="#commentModal_{{@index}}">
-        Reply!
-      </a>
+  <div class="display-comment-bottom">
+    <a class="btn replyToComments" autofocus="autofocus" data-toggle="modal" data-target="#commentModal_{{@index}}">
+      Reply!
+    </a>
 
-      {{#if repliesLength}}
-      <a  class="btn displayReplies" comment_id={{id}} data-toggle="collapse" button_rep_id={{@index}} id="button_rep_id_{{@index}}" data-target="#displayReply_{{@index}}" textDisplayReply={{textDisplayReply}} replieslength={{repliesLength}}>
-        <span class="textDisplayReply">{{textDisplayReply}}</span>
-      </a>
-      {{/if}}
-    </div>
-
-    <div id="displayReply_{{@index}}" class="collapse">
-      {{> shared/displayReply }} 
-
-    </div>
-    {{> shared/modalReply }} 
-
+    {{#if repliesLength}}
+    <a  class="btn displayReplies" comment_id={{id}} data-toggle="collapse" button_rep_id={{@index}} id="button_rep_id_{{@index}}" data-target="#displayReply_{{@index}}" textDisplayReply={{textDisplayReply}} replieslength={{repliesLength}}>
+      <span class="textDisplayReply">{{textDisplayReply}}</span>
+    </a>
+    {{/if}}
   </div>
 
+  <div id="displayReply_{{@index}}" class="collapse">
+    {{> shared/displayReply }} 
 
-  {{/each}}
+  </div>
+  {{> shared/modalReply }} 
+</div>
+{{/each}}
+<button type="button" class="btn btn-success showMore btn-block">Show more</button>
+
 </div>
 </div>
