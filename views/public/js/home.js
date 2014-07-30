@@ -44,16 +44,16 @@ $(function() {
                     handleVoteResponse(data.responseJSON,'alert-danger');
                 }
             });
-        });
-    function handleVoteResponse(data,alert_class)
-    {
-        var tr_id = data['tr_id'];
-        var message = data['message'];
-        $('#'+tr_id).find('.add_point_div').addClass('hidden');
-        $('#'+tr_id).find('.add_point_button').removeClass('hidden');
-        $('#'+tr_id).find('.message').html(message);
-        $('#'+tr_id).find('.message').addClass(alert_class);
-    }
+});
+function handleVoteResponse(data,alert_class)
+{
+    var tr_id = data['tr_id'];
+    var message = data['message'];
+    $('#'+tr_id).find('.add_point_div').addClass('hidden');
+    $('#'+tr_id).find('.add_point_button').removeClass('hidden');
+    $('#'+tr_id).find('.message').html(message);
+    $('#'+tr_id).find('.message').addClass(alert_class);
+}
 }
 
 
@@ -109,9 +109,9 @@ $('.like-comment').click(function() {
 
 
 $('.displayReplies').click(function() {
-    var button_rep_id     = $(this).attr('button_rep_id');
-    var textDisplayReply        = $(this).attr('textDisplayReply');
-    var replieslength = $(this).attr('replieslength');
+    var button_rep_id    = $(this).attr('button_rep_id');
+    var textDisplayReply = $(this).attr('textDisplayReply');
+    var replieslength    = $(this).attr('replieslength');
     if( textDisplayReply == 'hide replies' ){
         if( replieslength > 1 ){ textDisplayReply  = 'Click to see the '+replieslength+' replies'; };
         if( replieslength == 1 ){ textDisplayReply  = 'Click to see the reply'; };
@@ -130,10 +130,45 @@ $('.displayReplies').click(function() {
             var textDisplayReply     = data['textDisplayReply'];
             $('#button_rep_id_'+button_rep_id).find('.textDisplayReply').text(textDisplayReply);
             $('#button_rep_id_'+button_rep_id).attr('textDisplayReply',textDisplayReply);
-
         }
     });
 });
+
+var itemsCount = 5,
+    itemsMax   = $('.nbComment').attr('id');
+
+for (var i = 5; i < itemsMax; i++) {
+    $('.comment'+i).hide();
+}
+
+function showNextItems() {
+    var pagination = 5;
+    
+    if( $('.showMore').text()=='hide' ){
+        for (var i = 5; i < itemsMax; i++) {
+            $('.comment'+i).hide();
+            $('.showMore').text('Show More');
+            itemsCount = 5;
+        }
+    }
+    else{
+        for (var i = itemsCount; i < (itemsCount + pagination); i++) {
+            $('.comment'+i).show();
+        }        
+        itemsCount += pagination;
+
+        if (itemsCount > itemsMax) {
+            $('.showMore').text('hide');
+        }
+    }
+};
+
+$('.showMore').on('click', function (e) {
+    e.preventDefault();
+    showNextItems();
+});
+
+
 
 
 });
