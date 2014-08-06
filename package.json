@@ -23,7 +23,6 @@
     "mellt": "latest",
     "connect-flash": "latest",
     "handlebars-paginate": "latest",
-    "clickoutside": "latest"
   },
   "devDependencies": {
     "nodeunit": "latest"
