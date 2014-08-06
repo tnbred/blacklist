@@ -9,12 +9,13 @@ module.exports = function(req, res) {
   var tr_id = req.param("tr_id", null);
   var metaData = req.metaData;
 
+  votesThisWeek = parseInt(voteData.votesThisWeek)
+
   var Vote = models.Vote
   var User = models.User
   var List = models.List
   var user = new User()
-  var qb = new Vote().query()
-
+  var qb   = new Vote().query()
   qb.where("list_id", "=", voteData.list_id).
   andWhere("user_id", "=", metaData.current_user.id)
     .select()
@@ -24,10 +25,10 @@ module.exports = function(req, res) {
         points: parseInt(voteData.points),
         user_id: parseInt(metaData.current_user.id),
         user_to_id: parseInt(voteData.user_to_id),
-        list_id: parseInt(voteData.list_id)
+        list_id: parseInt(voteData.list_id),
       });
       try {
-        if (vote.toJSON().points > 0) {
+        if (vote.toJSON().points > 0 && vote.toJSON().points <= pointsLeft ) {
           new User({
             id: voteData.user_to_id
           }).fetch().then(function(votedUser) {
@@ -52,24 +53,30 @@ module.exports = function(req, res) {
             })
           })
           vote.save().then(function(vote) {
-            var hash = {};
-            hash.points = vote.toJSON().points;
-            hash.message = "Vote saved! (+" + vote.toJSON().points + ")";
-            hash.tr_id = tr_id;
-            hash.points_left = pointsLeft;
-            hash.error = false;
+            pointsLeft = pointsLeft - voteData.points
+            var hash   = {};
+            hash.points        = vote.toJSON().points;
+            hash.message       = "Vote saved! (+" + vote.toJSON().points + ")";
+            hash.tr_id         = tr_id;
+            hash.points_left   = pointsLeft;
+            hash.error         = false;
+            hash.votesThisWeek = votesThisWeek;
             res.json(hash);
           });
         } else {
           throw "negative and null votes are forbidden!"
         }
       } catch (error) {
-        var hash = {};
-        hash.points = vote.toJSON().points;
-        hash.message = error;
-        hash.tr_id = tr_id;
-        hash.points_left = pointsLeft;
-        hash.error = true;
+        var hash       = {};
+        if( isNaN(vote.toJSON().points) ){
+          hash.points      = 0;
+        };
+        hash.points        = vote.toJSON().points;
+        hash.message       = error;
+        hash.tr_id         = tr_id;
+        hash.points_left   = pointsLeft;
+        hash.error         = true;
+        hash.votesThisWeek = votesThisWeek;
         res.json(hash);
       }
     })

@@ -14,22 +14,22 @@ module.exports = function(req, res) {
   }).fetch({
     withRelated: ['users', 'votes']
   }).then(function(list) {
-    var users = list.related("users").toJSON()
-    var votes = list.related("votes").toJSON()
-    var list = list.toJSON()
-    var user = new User()
-    var rankArray = user.findRankArray(votes)
+    var users           = list.related("users").toJSON()
+    var votes           = list.related("votes").toJSON()
+    var list            = list.toJSON()
+    var user            = new User()
+    var rankArray       = user.findRankArray(votes)
     var current_user_id = metaData.current_user.id
-    var results = {}
-    results.totalPeople = users.length
-    results.listName = list.name
-    results.listId = list.id
-    results.latestVotes = new Vote().getLatestVotes(votes,users)
-    results.currentUser_Points = user.findPointsOnListFromRankArray(current_user_id, rankArray)
+    var results         = {}
+    results.totalPeople            = users.length
+    results.listName               = list.name
+    results.listId                 = list.id
+    results.latestVotes            = new Vote().getLatestVotes(votes,users)
+    results.currentUser_Points     = user.findPointsOnListFromRankArray(current_user_id, rankArray)
     results.currentUser_PointsLeft = user.getPointsLeft(current_user_id, votes)
-    results.currentUser_Rank = user.findRank(current_user_id, rankArray, results.totalPeople)
-    results.percentage = 100-(results.currentUser_Rank / results.totalPeople) * 100
-    results.votesThisWeek = user.votesThisWeek(current_user_id, votes)
+    results.currentUser_Rank       = user.findRank(current_user_id, rankArray, results.totalPeople)
+    results.percentage             = 100-(results.currentUser_Rank / results.totalPeople) * 100
+    results.votesThisWeek          = user.votesThisWeek(current_user_id, votes)
 
     results.users = [];
     for (var i in users) {

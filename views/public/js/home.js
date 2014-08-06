@@ -1,19 +1,31 @@
 $(function() {
 
-    var listHandlingEvents = function() {
-        $('.add_point_button button').click(function() {
+ 
+    //isPlusClicked = isHidden('.add_point_div');
+
+
+    $('.add_point_button button').click(function( event ) {
+        $(this).parent().parent().find('.add_point_div').removeClass('hidden')
+        $(this).parent().addClass('hidden')
+        alert( act );
+        var act = 1;
+
+    });
+
+    var listHandlingEvents = function( ) {
+        $('.add_point_button button').click(function( event ) {
             $(this).parent().parent().find('.add_point_div').removeClass('hidden')
             $(this).parent().addClass('hidden')
         });
 
-
         $('.valid_vote').click(function() {
-            var tr_id = $(this).parent().parent().parent().attr('id');
-            var points = $('#'+tr_id).find('select').find(":selected").text();
-            var list_id = $('#list_table').attr('list_id');
-            var user_to_id = $('#'+tr_id).attr('user_to_id');
-            var vote = {"list_id":list_id,"user_to_id":user_to_id, "points":points};
-
+            var tr_id         = $(this).parent().parent().parent().attr('id');
+            var points        = $('#'+tr_id).find('select').find(":selected").text();
+            var list_id       = $('#list_table').attr('list_id');
+            var user_to_id    = $('#'+tr_id).attr('user_to_id');
+            var votesThisWeek = $(this).attr('votesThisWeek');
+            var vote          = {"list_id":list_id,"user_to_id":user_to_id, "points":points , "votesThisWeek": votesThisWeek};
+            
             $.ajax({
                 url: "/votes",
                 data: {
@@ -26,19 +38,27 @@ $(function() {
                     var error = data['error'];
                     if( error ){ handleVoteResponse(data,'alert-danger') }
                         else{ handleVoteResponse(data,'alert-success') };
-                    var tr_id = data['tr_id'];
-                    var points_left = data['points_left'];
-                    var new_vote = parseInt(data['points']);
-                    var points = parseInt($('#'+tr_id).find('.item_points').text());
-                    var variation = parseInt($('#'+tr_id).find('.item_variation').text());
-                    $('#'+tr_id).find('.item_points').text(points+new_vote);
-                    $('#'+tr_id).find('.item_variation').text(variation+new_vote);
+                    var tr_id         = data['tr_id'];
+                    var points_left   = data['points_left'];
+                    var new_vote      = parseInt(data['points']);
+                    var points        = parseInt($('#'+tr_id).find('.item_points').text());
+                    var votes_this_week = parseInt( data['votesThisWeek'] + new_vote )
+                    if( votes_this_week > 0 ){
+                        new_points = points + new_vote
+                        html_item_points = new_points+' points <small>(<span class="glyphicon glyphicon-arrow-up"></span>+'+votes_this_week+' this week)</small>'
+                    }
+                    else{
+                        html_item_points = new_points+' points <small>(<span class="glyphicon glyphicon-arrow-right"></span>No change this week)</small>'
+                    }
+                    $('#'+tr_id).find('.item_points').html( html_item_points);
+                    $('#'+tr_id).find('.valid_vote').attr('votesThisWeek',votes_this_week)
                     var new_option_html = ""
                     for (var i=1;i<=points_left;i++)
                     {
                         new_option_html+='<option value='+i+'>'+i+'</option>'
                     }
                     $('.add_point_div select').html(new_option_html)
+
                 },
                 error: function(data,textStatus) {
                     handleVoteResponse(data.responseJSON,'alert-danger');
@@ -70,6 +90,20 @@ function getData(el,layout){
         }
     });
 }
+
+/*$( "body" ).click(function( event ) {
+    var isPlusClicked = $('.add_point_div').attr('class').indexOf("hidden");
+    var target = $( event.target )
+    var isVote = target.attr('class').indexOf("valid_vote") ;
+    event.stopPropagation();
+    if( isPlusClicked == -1  && isVote == -1 ){
+        alert('bla')
+        $('.add_point_div').addClass('hidden');
+        $('.add_point_button').removeClass('hidden');  
+    }
+});
+*/
+
 
 $('.blacklistToLoad').each(function(idx,el){
     getData(el,null);
@@ -135,7 +169,7 @@ $('.displayReplies').click(function() {
 });
 
 var itemsCount = 5,
-    itemsMax   = $('.nbComment').attr('id');
+itemsMax   = $('.nbComment').attr('id');
 
 for (var i = 5; i < itemsMax; i++) {
     $('.comment'+i).hide();

@@ -1,8 +1,6 @@
 var models = require(__dirname + "/../../models");
 module.exports = function(req, res) {
-  //console.log(  'req.flash( \'success\' ) !==[]' +(req.flash( 'success' ) !==[])   );
-  //console.log(  'req.flash( \'success\' ) !=[]' +(req.flash( 'success' ) !=[])   );
-  //console.log(  '!(req.flash( \'success\' ) ==[])' +!((req.flash( 'success' ) ==[]))   );
+
   if( req.flash( 'success' )[0] == 'success' ){
     messageLoginSuccess = [{
       alertType: "alert-success",
