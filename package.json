@@ -22,7 +22,7 @@
     "promise": "^5.0.0",
     "mellt": "latest",
     "connect-flash": "latest",
-    "handlebars-paginate": "latest",
+    "handlebars-paginate": "latest"
   },
   "devDependencies": {
     "nodeunit": "latest"
