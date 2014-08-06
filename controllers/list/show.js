@@ -54,23 +54,26 @@ module.exports = function(req, res) {
 
 		//code to check if the user just sent a new message
 		if( message == null ){
-			if( Math.floor( (new Date() - commentsSorted[0].created_at.getTime() ) / 1000) < 10){
-				if( commentsSorted[0].user.nickname == metaData.current_user.nickname ){
-					message = [{
-						alertType: "alert-success",
-						strongMessage: "Message saved!",
-						messageText: "",
-						display: true
-					}]				
+			if( commentsSorted.length > 0){
+				if( Math.floor( (new Date() - commentsSorted[0].created_at.getTime() ) / 1000) < 10){
+					if( commentsSorted[0].user.nickname == metaData.current_user.nickname ){
+						message = [{
+							alertType: "alert-success",
+							strongMessage: "Message saved!",
+							messageText: "",
+							display: true
+						}]				
+					}
+					else{
+						message = null;
+					}
+
 				}
 				else{
 					message = null;
-				}
-
+				}				
 			}
-			else{
-				message = null;
-			}			
+			
 		}
 
 		res.render("list/show", {
