@@ -22,9 +22,11 @@ module.exports = function(req, res) {
 					disabled="disabled";
 				}
 			};
+		
 			commentsSorted[i].likes         = commentsSorted[i].likes.length
 			commentsSorted[i].disabled      = disabled
 			commentsSorted[i].repliesLength = commentsSorted[i].replies.length
+			commentsSorted[i].isCurrentAuthor = (commentsSorted[i].user.id == metaData.current_user.id)
 
 			if( commentsSorted[i].replies.length>1 ){
 				commentsSorted[i].textDisplayReply = 'Click to see the '+commentsSorted[i].replies.length+' replies';
@@ -75,7 +77,6 @@ module.exports = function(req, res) {
 			}
 			
 		}
-
 		res.render("list/show", {
 			metaData: req.metaData,
 			list: list.toJSON(),

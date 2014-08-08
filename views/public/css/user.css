@@ -102,3 +102,15 @@ span a:hover{
 
 }
 
+.delete_comment{
+    position:absolute;
+    top:0;
+    right:0;
+    text-decoration:underline;
+}
+
+.delete_reply{
+    position:absolute;
+    top:0;
+    right:0;
+}

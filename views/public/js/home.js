@@ -1,6 +1,6 @@
 $(function() {
 
- 
+
     //isPlusClicked = isHidden('.add_point_div');
 
 
@@ -204,5 +204,35 @@ $('.showMore').on('click', function (e) {
 
 
 
+$('.delete_comment').click(function() {
+    var comment_id = $(this).attr('comment_id');
+    $.ajax({
+        url: "/comments/delete",
+        data: {
+            "comment_id": comment_id
+        },
+        type: "POST",
+        dataType: 'json',
+        success: function (data) {
+            comment_id = data["comment_id"];
+            $('#delete_comment_link_'+comment_id).parent().parent().hide()
+        }
+    });
+});
+
+$('.delete_reply').click(function() {
+    var reply_id = $(this).attr('reply_id');
+    $.ajax({
+        url: "/comments/deleteReply",
+        data: {
+            "reply_id": reply_id
+        },
+        type: "POST",
+        dataType: 'json',
+    });
+});
+
 
 });
+
+

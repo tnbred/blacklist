@@ -29,10 +29,14 @@
 
 <div class="row col-lg-10 comments">
  <div class="nbComment" id={{nbCom}}></div>
-
   {{#each comments}}
-  <div class="col-md-12 well comment{{@index}}" id={{last}}>
+  <div class="col-md-12 well comment{{@index}}">
    <p>
+    {{#if isCurrentAuthor}}
+    <a class="btn delete_comment" comment_id={{id}} id="delete_comment_link_{{id}}">
+      <span class="delete_link">delete</span>
+    </a>
+    {{/if}}
     {{comment}}
     <br>
     <button type="button" class="btn btn-default btn-sm pull-left like-comment {{disabled}}" comment_id={{id}} button_id={{@index}} id="button_id_{{@index}}" likes={{likes}}>
@@ -64,3 +68,4 @@
 
 </div>
 </div>
+

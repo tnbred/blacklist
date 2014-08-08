@@ -72,4 +72,10 @@ module.exports = function(app) {
   app.route("/comments/reply")
     .post(controllers.comment.reply)
 
+  app.route("/comments/delete")
+    .post(controllers.comment.delete)
+
+  app.route("/comments/deleteReply")
+    .post(controllers.comment.deleteReply)
+
 }

@@ -1,5 +1,6 @@
 {{#each replies}}
 <div class="col-md-12 well reply">
+	<button type="button" class="close delete_reply" reply_id={{id}} id="delete_reply_link_{{id}}" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Delete</span></button>
 	{{reply}}
 	<small class="pull-right">By {{user.nickname}}, {{formatDate}} </small></p>
 </div>
