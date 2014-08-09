@@ -1,22 +1,22 @@
 $(function() {
 
 
-    //isPlusClicked = isHidden('.add_point_div');
-
-
-    $('.add_point_button button').click(function( event ) {
-        $(this).parent().parent().find('.add_point_div').removeClass('hidden')
-        $(this).parent().addClass('hidden')
-        alert( act );
-        var act = 1;
-
-    });
 
     var listHandlingEvents = function( ) {
         $('.add_point_button button').click(function( event ) {
-            $(this).parent().parent().find('.add_point_div').removeClass('hidden')
-            $(this).parent().addClass('hidden')
+            var pointsLeft = $(this).attr('pointsLeft');
+            if( pointsLeft > 0 ){
+                $(this).parent().parent().find('.add_point_div').removeClass('hidden')
+                $(this).parent().addClass('hidden')
+            }
+            else{
+                var tr_id  = $(this).parent().parent().parent().attr('id');
+                $('#'+tr_id).find('.message').html("You have 0 point left!");
+                $('#'+tr_id).find('.message').addClass('alert-danger');
+                $('#'+tr_id).find('.message').removeClass('hidden')
+            };
         });
+
 
         $('.valid_vote').click(function() {
             var tr_id         = $(this).parent().parent().parent().attr('id');
@@ -73,6 +73,7 @@ function handleVoteResponse(data,alert_class)
     $('#'+tr_id).find('.add_point_button').removeClass('hidden');
     $('#'+tr_id).find('.message').html(message);
     $('#'+tr_id).find('.message').addClass(alert_class);
+    $('#'+tr_id).find('.message').removeClass('hidden')
 }
 }
 
@@ -91,18 +92,8 @@ function getData(el,layout){
     });
 }
 
-/*$( "body" ).click(function( event ) {
-    var isPlusClicked = $('.add_point_div').attr('class').indexOf("hidden");
-    var target = $( event.target )
-    var isVote = target.attr('class').indexOf("valid_vote") ;
-    event.stopPropagation();
-    if( isPlusClicked == -1  && isVote == -1 ){
-        alert('bla')
-        $('.add_point_div').addClass('hidden');
-        $('.add_point_button').removeClass('hidden');  
-    }
-});
-*/
+
+
 
 
 $('.blacklistToLoad').each(function(idx,el){

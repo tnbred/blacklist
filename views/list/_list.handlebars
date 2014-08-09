@@ -10,7 +10,7 @@
     <th>Rank</th>
     <th>Name</th>
     <th>Points</th>
-    <th></th>
+    <th>Vote!</th>
   </tr>
   </thead>
   <tbody id="list_table" list_id={{results.listId}} > 
@@ -28,14 +28,13 @@
             <select class='display_points_to_vote'>
               {{{formatAvailablePoints}}}
             </select>
+
             <button class="btn btn-danger valid_vote" votesThisWeek={{votesThisWeek}} >Vote!</button>
           </div>
           <div class="add_point_button">
-            <button class="btn display_vote">+</button>
-            <div class="alert message fade in">
-
-            </div>
-          </div>
+            <button class="btn display_vote" pointsLeft = {{currentUser_PointsLeft}}>+</button>
+            <span class="alert message fade in hidden"></span>
+          </div> 
         </td>
       </tr>
       {{/each}}
