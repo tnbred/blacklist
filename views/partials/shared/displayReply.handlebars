@@ -1,7 +1,11 @@
 {{#each replies}}
 <div class="col-md-12 well reply">
+	<div class="row comment-body">
 	<button type="button" class="close delete_reply" reply_id={{id}} id="delete_reply_link_{{id}}" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Delete</span></button>
 	{{reply}}
-	<small class="pull-right">By {{user.nickname}}, {{formatDate}} </small></p>
+</div>
+<div class="row comment-footer">
+	<small class="pull-right">By {{user.nickname}}, {{formatDate}} </small>
+</div>
 </div>
 {{/each}}

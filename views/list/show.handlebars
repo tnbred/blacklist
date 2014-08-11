@@ -29,39 +29,34 @@
 
 <div class="row col-lg-10 comments">
  <div class="nbComment" id={{nbCom}}></div>
-  {{#each comments}}
-  <div class="col-md-12 well comment{{@index}}">
+ {{#each comments}}
+ <div class="col-md-12 well comment{{@index}}">
+  <div class="row comment-top"> 
+     <p class="pull-left"><strong>{{user.nickname}}</strong> , {{formatDate}}</p>
+       {{#if isCurrentAuthor}}
+  <a class="btn delete_comment" comment_id={{id}} id="delete_comment_link_{{id}}">
+    <span class="delete_link">delete</span>
+  </a>
+  {{/if}}
+  </div>
+  <div class="row comment-body">
    <p>
-    {{#if isCurrentAuthor}}
-    <a class="btn delete_comment" comment_id={{id}} id="delete_comment_link_{{id}}">
-      <span class="delete_link">delete</span>
-    </a>
-    {{/if}}
     {{comment}}
-    <br>
-    <button type="button" class="btn btn-default btn-sm pull-left like-comment {{disabled}}" comment_id={{id}} button_id={{@index}} id="button_id_{{@index}}" likes={{likes}}>
-      <span class="likes">{{likes}}</span> <span class="glyphicon glyphicon-heart"></span> 
-    </button>
-    <small class="pull-right">By {{user.nickname}}, {{formatDate}} </small>
   </p>
+</div>
+<div class="row comment-footer">
+  <button type="button" class="btn btn-default btn-sm pull-left like-comment {{disabled}}" comment_id={{id}} button_id={{@index}} id="button_id_{{@index}}" likes={{likes}}>
+    <span class="likes">{{likes}}</span> <span class="glyphicon glyphicon-heart"></span> 
+  </button>
+  <a class="btn replyToComments" autofocus="autofocus" data-toggle="modal" data-target="#commentModal_{{@index}}">
+    Reply!
+  </a> 
+</div>
 
-  <div class="display-comment-bottom">
-    <a class="btn replyToComments" autofocus="autofocus" data-toggle="modal" data-target="#commentModal_{{@index}}">
-      Reply!
-    </a>
-
-    {{#if repliesLength}}
-    <a  class="btn displayReplies" comment_id={{id}} data-toggle="collapse" button_rep_id={{@index}} id="button_rep_id_{{@index}}" data-target="#displayReply_{{@index}}" textDisplayReply={{textDisplayReply}} replieslength={{repliesLength}}>
-      <span class="textDisplayReply">{{textDisplayReply}}</span>
-    </a>
-    {{/if}}
-  </div>
-
-  <div id="displayReply_{{@index}}" class="collapse">
-    {{> shared/displayReply }} 
-
-  </div>
-  {{> shared/modalReply }} 
+<div id="displayReply_{{@index}}">
+  {{> shared/displayReply }} 
+</div>
+{{> shared/modalReply }} 
 </div>
 {{/each}}
 <button type="button" class="btn btn-success showMore btn-block">Show more</button>

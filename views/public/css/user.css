@@ -60,6 +60,7 @@ span a:hover{
     bottom:0;
     right:0;
     text-decoration:underline;
+    color:black;
 }
 
 .displayReplies{
@@ -102,11 +103,16 @@ span a:hover{
 
 }
 
+strong {
+  font-family: verdana;
+}
+
 .delete_comment{
     position:absolute;
     top:0;
     right:0;
     text-decoration:underline;
+    color: black;
 }
 
 .delete_reply{
@@ -114,3 +120,17 @@ span a:hover{
     top:0;
     right:0;
 }
+
+.comment-top {
+  padding-bottom: 15px;
+}
+
+.comment-body {
+  padding-bottom: 15px;
+}
+
+.comment-footer {
+  padding-bottom: 15px;
+}
+
+
