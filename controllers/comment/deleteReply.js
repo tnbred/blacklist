@@ -8,7 +8,6 @@ module.exports = function(req, res) {
   new ReplyComment ({id: reply_id})
   .fetch()
   .then(function( reply ) {
-    console.log( current_user_id );
     var author_id = reply.toJSON().user_id;
     if( current_user_id == author_id ){
       reply.destroy();

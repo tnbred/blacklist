@@ -32,7 +32,6 @@ module.exports = function(req, res) {
     results.votesThisWeek          = user.votesThisWeek(current_user_id, votes)
 
     mostHated = user.mostHated( users , votes );
-    console.log( mostHated )
 
     results.users = [];
     for (var i in users) {
@@ -48,7 +47,6 @@ module.exports = function(req, res) {
       userHash.mostHatedM = ( mostHated[2].id == users[i].id )
       results.users.push(userHash);
     }
-    console.log( results.users )
     results.users.sort(function(a, b) {
       return a.userRank - b.userRank
     });
