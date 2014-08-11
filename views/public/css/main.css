@@ -33,4 +33,6 @@ span a:hover{
 .center-vert {
   margin-top: 10%;
 }
-
+.full-screen {
+  height: 600px;
+}

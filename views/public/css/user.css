@@ -133,4 +133,7 @@ strong {
   padding-bottom: 15px;
 }
 
+.full-screen {
+  height: 600px;
+}
 
