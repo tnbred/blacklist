@@ -4,7 +4,7 @@
   <div class="panel-body">
     <p>You are ranked {{results.currentUser_Rank}} out of {{results.totalPeople}} people and you have {{results.currentUser_PointsLeft}} votes left. </p>
   </div>
-<table class="table table-bordered table-hover">
+<table class="table table-hover">
   <thead>
   <tr>
     <th>Rank</th>
@@ -16,11 +16,12 @@
   <tbody id="list_table" list_id={{results.listId}} > 
       {{#each results.users}}
       <tr id="list_item_{{@index}}" points={{userPoints}}  user_to_id={{user.id}}>
-        <td class="item_rank">{{userRank}}</td>
-        <td class="item_name">{{user.name}}
+        <td>{{userRank}}</td>
+        <td class="item_name"><p>{{user.name}}
           {{#if mostHatedD }}<span class="glyphicon glyphicon-star"></span>{{/if}}
           {{#if mostHatedW }}<span class="glyphicon glyphicon-thumbs-down"></span>{{/if}}
           {{#if mostHatedM }}<span class="glyphicon glyphicon-hand-down"></span>{{/if}}
+        </p>
         </td>
         {{#if votesThisWeek}}
         <td class="item_points"><strong>{{userPoints}}</strong>  <small>(<span class="glyphicon glyphicon-arrow-up"></span>+{{votesThisWeek}} this week)</small></td>
