@@ -23,9 +23,9 @@
           {{#if mostHatedM }}<span class="glyphicon glyphicon-hand-down"></span>{{/if}}
         </td>
         {{#if votesThisWeek}}
-        <td class="item_points">{{userPoints}} points <small>(<span class="glyphicon glyphicon-arrow-up"></span>+{{votesThisWeek}} this week)</small></td>
+        <td class="item_points"><strong>{{userPoints}}</strong>  <small>(<span class="glyphicon glyphicon-arrow-up"></span>+{{votesThisWeek}} this week)</small></td>
         {{else}}
-        <td class="item_points">{{userPoints}} points <small>(<span class="glyphicon glyphicon-arrow-right"></span>No change this week)</small></td>
+        <td class="item_points"><strong>{{userPoints}}</strong>  <small>(<span class="glyphicon glyphicon-arrow-right"></span>No change this week)</small></td>
         {{/if}}
         <td>
           <div class="hidden add_point_div">
