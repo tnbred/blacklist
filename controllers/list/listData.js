@@ -31,6 +31,9 @@ module.exports = function(req, res) {
     results.percentage             = 100-(results.currentUser_Rank / results.totalPeople) * 100
     results.votesThisWeek          = user.votesThisWeek(current_user_id, votes)
 
+    mostHated = user.mostHated( users , votes );
+    console.log( mostHated )
+
     results.users = [];
     for (var i in users) {
       var userHash = {}
@@ -40,12 +43,16 @@ module.exports = function(req, res) {
       userHash.currentUser_PointsLeft = results.currentUser_PointsLeft
       userHash.userRank = user.findRank(user_id, rankArray, results.totalPeople)
       userHash.votesThisWeek = user.votesThisWeek(user_id, votes)
+      userHash.mostHatedD = ( mostHated[0].id == users[i].id )
+      userHash.mostHatedW = ( mostHated[1].id == users[i].id )
+      userHash.mostHatedM = ( mostHated[2].id == users[i].id )
       results.users.push(userHash);
     }
-
+    console.log( results.users )
     results.users.sort(function(a, b) {
       return a.userRank - b.userRank
     });
+
     if (layout) {
       res.render("list/_list", {
         layout: false,

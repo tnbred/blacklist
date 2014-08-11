@@ -17,7 +17,11 @@
       {{#each results.users}}
       <tr id="list_item_{{@index}}" points={{userPoints}}  user_to_id={{user.id}}>
         <td class="item_rank">{{userRank}}</td>
-        <td class="item_name">{{user.name}}</td>
+        <td class="item_name">{{user.name}}
+          {{#if mostHatedD }}<span class="glyphicon glyphicon-star"></span>{{/if}}
+          {{#if mostHatedW }}<span class="glyphicon glyphicon-thumbs-down"></span>{{/if}}
+          {{#if mostHatedM }}<span class="glyphicon glyphicon-hand-down"></span>{{/if}}
+        </td>
         {{#if votesThisWeek}}
         <td class="item_points">{{userPoints}} points <small>(<span class="glyphicon glyphicon-arrow-up"></span>+{{votesThisWeek}} this week)</small></td>
         {{else}}

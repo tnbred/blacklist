@@ -42,12 +42,12 @@ var User = Bookshelf.Model.extend({
 	},
 	getSaltedPassword: function(password, salt) {
 		var Crypto = require("crypto"),
-			hash = Crypto.createHash("sha1");
+		hash = Crypto.createHash("sha1");
 
 		// Update the hash
 		hash.update(
 			[this.swapString(salt), password, salt].join('')
-		);
+			);
 
 		// Digest
 		return hash.digest("hex");
@@ -59,13 +59,13 @@ var User = Bookshelf.Model.extend({
 		}
 		var self = this
 			// Generate a random salt
-		self.generateSalt(function(error, randomSalt) {
-			try {
+			self.generateSalt(function(error, randomSalt) {
+				try {
 				// Salt the password
 				var saltedPassword = self.getSaltedPassword(
 					password,
 					randomSalt
-				);
+					);
 
 
 				// Set new values for password and salt fields
@@ -77,100 +77,167 @@ var User = Bookshelf.Model.extend({
 				callback(_error, null);
 			}
 		});
-	},
-	isPasswordMatching: function(password) {
-		if (this.get("password") === null || this.get("salt") === null) {
-			throw new Error("Password not set on current instance");
-		}
+		},
+		isPasswordMatching: function(password) {
+			if (this.get("password") === null || this.get("salt") === null) {
+				throw new Error("Password not set on current instance");
+			}
 
-		return this.getSaltedPassword(password, this.get("salt")) === this.get("password");
-	},
-	findPointsOnList: function(id, votes) {
-		var result = 0;
-		for (var i in votes) {
-			if (votes[i].user_to_id == id) {
-				result += votes[i].points;
+			return this.getSaltedPassword(password, this.get("salt")) === this.get("password");
+		},
+		findPointsOnList: function(id, votes) {
+			var result = 0;
+			for (var i in votes) {
+				if (votes[i].user_to_id == id) {
+					result += votes[i].points;
+				}
 			}
-		}
-		return result;
-	},
-	findPointsOnListFromRankArray: function(id, rankArray) {
-		var result = 0;
-		for (var i in rankArray) {
-			if (rankArray[i].userId == id) {
-				result = rankArray[i].points;
+			return result;
+		},
+		findPointsOnListFromRankArray: function(id, rankArray) {
+			var result = 0;
+			for (var i in rankArray) {
+				if (rankArray[i].userId == id) {
+					result = rankArray[i].points;
+				}
 			}
-		}
-		return result;
-	},
-	findRankArray: function(votes) {
-		var result = 0;
-		var tempHash = {};
-		var tempArray = [];
+			return result;
+		},
+		findRankArray: function(votes) {
+			var result = 0;
+			var tempHash = {};
+			var tempArray = [];
 
-		for (var i in votes) {
-			if (!tempHash[votes[i].user_to_id]) {
-				tempHash[votes[i].user_to_id] = this.findPointsOnList(votes[i].user_to_id, votes)
+			for (var i in votes) {
+				if (!tempHash[votes[i].user_to_id]) {
+					tempHash[votes[i].user_to_id] = this.findPointsOnList(votes[i].user_to_id, votes)
+				}
 			}
-		}
-		Object.keys(tempHash).forEach(function(userId) {
-			var points = tempHash[userId];
-			tempArray.push({
-				userId: userId,
-				points: points
+			Object.keys(tempHash).forEach(function(userId) {
+				var points = tempHash[userId];
+				tempArray.push({
+					userId: userId,
+					points: points
+				});
+			})
+			tempArray.sort(function(a, b) {
+				return b.points - a.points
 			});
-		})
-		tempArray.sort(function(a, b) {
-			return b.points - a.points
-		});
-		return tempArray;
-	},
-	getBeginningWeek: function(today) {
-		today = new Date(today);
-		today.setHours(0)
-		var day = today.getDay(),
+			return tempArray;
+		},
+		getBeginningDay: function( today ){
+			var start = new Date();
+			start.setHours(0,0,0,0);
+			return( start );
+		},
+
+		getBeginningWeek: function(today) {
+			today = new Date(today);
+			today.setHours(0);
+			var day = today.getDay(),
 			diff = today.getDate() - day + (day == 0 ? -6 : 1); // adjust when day is sunday
-		return new Date(today.setDate(diff));
-	},
-	getPointsLeft: function(userId, votes) {
-		var result = 25;
-		var self = this
-		for (var i in votes) {
-			if ((userId == votes[i].user_id) && (votes[i].created_at > self.getBeginningWeek(new Date()))) {
-				result -= votes[i].points;
-			}
-		}
-		return (result < 0) ? 0 : result;
-	},
-	findRank: function(userId, rankArray, total) {
-		var result = 0;
-		var found = false;
+			return new Date(today.setDate(diff));
+		},
 
-		for (var i in rankArray) {
-			result += 1;
-			if (rankArray[i].userId == userId) {
-				found = true;
-				break;
+		getBeginningMonth: function( today ){
+			var date = new Date(), 
+			y    = date.getFullYear(),
+			m    = date.getMonth();
+			var firstDay = new Date(y, m, 1);
+			return( firstDay );
+		},
+
+		getPointsLeft: function(userId, votes) {
+			var result = 25;
+			var self = this
+			for (var i in votes) {
+				if ((userId == votes[i].user_id) && (votes[i].created_at > self.getBeginningWeek(new Date()))) {
+					result -= votes[i].points;
+				}
 			}
+			return (result < 0) ? 0 : result;
+		},
+		findRank: function(userId, rankArray, total) {
+			var result = 0;
+			var found = false;
+
+			for (var i in rankArray) {
+				result += 1;
+				if (rankArray[i].userId == userId) {
+					found = true;
+					break;
+				}
+			}
+
+			return (found) ? result : total;
+		},
+		votesThisWeek: function(userId, votes) {
+			var result = 0;
+			var self = this
+			for (var i in votes) {
+				if ((userId == votes[i].user_to_id) && (votes[i].created_at > self.getBeginningWeek(new Date()))) {
+					result += votes[i].points;
+				}
+			}
+			return result;
+		},
+		updateTimeStamp: function() {
+			this.lastlogin_at = Date.now();
+			this.save();
+		},
+
+		mostHated: function( users, votes ){
+			var userVotesD = [],
+			userVotesW = [],
+			userVotesM = []
+			for ( var u in users ){
+				var resultD = {},
+				resultW = {},
+				resultM = {};
+				resultD.user = users[ u ];
+				resultW.user = users[ u ]
+				resultM.user = users[ u ]
+
+				resultD.votes = 0;
+				resultW.votes = 0;
+				resultMvotes = 0;
+
+				for (var v in votes) {
+					if (users[ u ].id == votes[ v ].user_to_id){
+						if( votes[ v ].created_at > this.getBeginningDay(new Date()) ){
+							resultD.votes += votes[ v ].points
+						}
+						if( votes[ v ].created_at > this.getBeginningWeek(new Date()) ){
+							resultW.votes += votes[ v ].points
+						}
+						if( votes[ v ].created_at > this.getBeginningMonth(new Date()) ){
+							resultM.votes += votes[ v ].points
+						}
+					} 
+				}
+				userVotesD.push( resultD );
+				userVotesW.push( resultW );
+				userVotesM.push( resultM );
+			}
+
+			
+
+			userVotesD.sort(function(a, b) {
+				return b.votes - a.votes
+			});
+			userVotesW.sort(function(a, b) {
+				return b.votes - a.votes
+			});
+			userVotesM.sort(function(a, b) {
+				return b.votes - a.votes
+			});
+			var mostHatedUserD = userVotesD[0].user;
+			var mostHatedUserW = userVotesW[0].user;
+			var mostHatedUserM = userVotesM[0].user;
+			return( [ mostHatedUserD , mostHatedUserW , mostHatedUserM ])
 		}
 
-		return (found) ? result : total;
-	},
-	votesThisWeek: function(userId, votes) {
-		var result = 0;
-		var self = this
-		for (var i in votes) {
-			if ((userId == votes[i].user_to_id) && (votes[i].created_at > self.getBeginningWeek(new Date()))) {
-				result += votes[i].points;
-			}
-		}
-		return result;
-	},
-	updateTimeStamp: function() {
-		this.lastlogin_at = Date.now();
-		this.save();
-	}
-});
+	});
 
 
 
