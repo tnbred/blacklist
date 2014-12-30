@@ -13,6 +13,7 @@ module.exports = function(req, res) {
     messageLoginSuccess = null;
   }
   var current_user = req.metaData.current_user
+  var displayTuto  = (current_user.logincount == 1 && messageLoginSuccess != null )
   var User = models.User;
   var user = new User({
     id: req.metaData.current_user.id
@@ -28,7 +29,8 @@ module.exports = function(req, res) {
     res.render("user/home", {
       metaData: req.metaData,
       lists: lists.toJSON(),
-      message: messageLoginSuccess
+      message: messageLoginSuccess,
+      displayTuto: displayTuto 
     });
   });
 

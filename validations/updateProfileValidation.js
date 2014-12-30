@@ -8,7 +8,7 @@ checkPostedInfo = function( current_user , user ){
 		if (user.password !== user.password_confirmation) throw "password confirmation doesn't match password";
 	}
 	if (mellt.CheckPassword( user.current_password ) == 0) {
-					throw "your password is too simple  \n try longer combinations or use special characters such as !&,.ç? digits or even sentences like \' theblacklistapp is the best site ever!!!\'";
+		throw "your password is too simple  \n try longer combinations or use special characters such as !&,.ç? digits or even sentences like \' theblacklistapp is the best site ever!!!\'";
 	} 
 }
 
@@ -50,8 +50,6 @@ updatePostedInfo = function( current_user , user ){
 	return( message );
 
 }
-
-
 
 exports.checkPostedInfo = checkPostedInfo;
 exports.updatePostedInfo = updatePostedInfo;
