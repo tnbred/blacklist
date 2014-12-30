@@ -50,6 +50,10 @@ module.exports = function(app) {
     .get(controllers.user.profile)
     .post(controllers.user.updateProfile)
 
+  app.route("/user/tutorial")
+    .post(controllers.user.tutorial)
+    .get(controllers.user.home)
+
   //List routes
   app.route("/user/listData")
     .get(controllers.list.listData)

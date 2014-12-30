@@ -1,18 +1,24 @@
 <div class="row center-vert col-md-offset-2 col-md-7">
 
-<div><h1>Your Black Lists</h1></div>
 
-<ul class="list-group main-list-index">
-      
-{{#each lists}}
-<li class="list-group-item blacklistToLoad" blacklistid={{id}}>
-  <a class="lead" href="/lists/{{id}}">{{name}}</a> 
-  <img style="margin-left: 30%" src="/img/loader.gif">
-</li>
-  {{/each}}
+  {{#if displayTuto}}
 
-</ul>
+    {{> shared/tutorial}} 
 
-        </div>
+  {{/if}}
 
+    <div><h1>Your Black Lists</h1></div>
+
+      <ul class="list-group main-list-index">
+            
+      {{#each lists}}
+      <li class="list-group-item blacklistToLoad" blacklistid={{id}}>
+        <a class="lead" href="/lists/{{id}}">{{name}}</a> 
+        <img style="margin-left: 30%" src="/img/loader.gif">
+      </li>
+      {{/each}}
+
+      </ul>
+
+    </div>
 </div>

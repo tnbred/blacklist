@@ -1,4 +1,4 @@
-function checkLoginInfo(errorMessage) {
+checkLoginInfo = function(errorMessage) {
   if (errorMessage) {
     return [{
       alertType: "alert-danger",
@@ -11,4 +11,5 @@ function checkLoginInfo(errorMessage) {
   }
 }
 
-exports.checkLoginInfo = checkLoginInfo;
+  exports.checkLoginInfo = checkLoginInfo;
+

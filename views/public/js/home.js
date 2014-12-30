@@ -223,6 +223,15 @@ $('.delete_reply').click(function() {
     });
 });
 
+$('.tutorial').click(function() {
+    var id_to_hide = $(this).parent().parent().parent().parent().attr('id');
+    var id_to_show = parseInt( id_to_hide ) + 1;
+    if (id_to_hide < 5) {
+            $('#'+id_to_hide).addClass('hidden');
+            $('#'+id_to_show).removeClass('hidden');
+    }
+
+});
 
 });
 
