@@ -59,3 +59,5 @@ emailTemplates(templatesDir, function(err, template) {
      
     });
   })
+
+setTimeout(function(){ process.exit(0);  }, 3000000);
