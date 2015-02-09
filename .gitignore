@@ -2,6 +2,8 @@
 .DS_Store
 node_modules/*
 config/index.js
+config/index-dev.js
+config/index-prod.js
 db/schema.js
 log
 log/
