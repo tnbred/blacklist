@@ -23,7 +23,8 @@
     "mellt": "latest",
     "connect-flash": "latest",
     "handlebars-paginate": "latest",
-    "handlebars-helpers": "latest"
+    "handlebars-helpers": "latest",
+    "password-generator": "latest",
   },
   "devDependencies": {
     "nodeunit": "latest"
