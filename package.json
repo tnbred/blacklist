@@ -24,7 +24,7 @@
     "connect-flash": "latest",
     "handlebars-paginate": "latest",
     "handlebars-helpers": "latest",
-    "password-generator": "latest",
+    "password-generator": "latest"
   },
   "devDependencies": {
     "nodeunit": "latest"
