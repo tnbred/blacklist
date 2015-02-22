@@ -50,7 +50,9 @@ module.exports = function(req, res) {
       res.render("user/home", {
         metaData: req.metaData,
         lists: lists.toJSON(),
-        message: messageLoginSuccess
+        message: messageLoginSuccess,
+        displayTuto: displayTuto 
+
       });
     });
   };
